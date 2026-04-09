@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:horizonos="http://schemas.horizonos/sdk"
+  android:versionCode="1"
+  android:versionName="1.0"
+  android:installLocation="auto"
+>
+
+  <horizonos:uses-horizonos-sdk
+    horizonos:minSdkVersion="69"
+    horizonos:targetSdkVersion="69"
+  />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <application
+    android:allowBackup="false"
+    android:label="HorizonOSTemplate"
+    android:theme="@style/Theme.HorizonOSTemplate"
+  >
+    <meta-data
+      android:name="com.oculus.supportedDevices"
+      android:value="quest2|questpro|quest3"
+    />
+    <activity
+      android:name="com.meta.horizon.samples.horizonostemplate.MainActivity"
+      android:launchMode="singleTask"
+      android:configChanges="screenSize|screenLayout|orientation|keyboardHidden|keyboard|navigation|uiMode"
+      android:exported="true"
+    >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <layout
+        android:defaultHeight="640dp"
+        android:defaultWidth="1024dp" />
+    </activity>
+  </application>
+</manifest>
