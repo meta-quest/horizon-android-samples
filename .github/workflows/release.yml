@@ -1,0 +1,32 @@
+name: Create Release on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up release version
+        run: |
+          echo "RELEASE_TAG=$(date +'%Y.%m.%d-%H%M%S')" >> $GITHUB_ENV
+
+      - name: Zip directory
+        run: |
+          zip -r HorizonOSTemplate.zip HorizonOSTemplate
+
+      - name: Create GitHub Release and upload assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$RELEASE_TAG" \
+            --title "Release $RELEASE_TAG" \
+            --notes "Automated release for commit ${{ github.sha }}" \
+            HorizonOSTemplate.zip
