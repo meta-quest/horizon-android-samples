@@ -18,7 +18,7 @@
   <application
     android:allowBackup="false"
     android:label="HorizonOSTemplate"
-    android:theme="@style/Theme.HorizonOSTemplate"
+    android:theme="@style/Theme.AppTheme"
   >
     <meta-data
       android:name="com.oculus.supportedDevices"
