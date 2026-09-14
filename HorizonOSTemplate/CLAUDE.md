@@ -83,12 +83,12 @@ The `AndroidManifest.xml` includes Horizon OS-specific configuration:
 <!-- Required: Horizon OS SDK version targeting -->
 <horizonos:uses-horizonos-sdk
   horizonos:minSdkVersion="69"
-  horizonos:targetSdkVersion="69" />
+  horizonos:targetSdkVersion="207" />
 
 <!-- Supported Quest devices -->
 <meta-data
   android:name="com.oculus.supportedDevices"
-  android:value="quest2|questpro|quest3" />
+  android:value="quest2|questpro|quest3|quest3s" />
 
 <!-- Panel default size (2D app window dimensions) -->
 <layout
@@ -97,6 +97,10 @@ The `AndroidManifest.xml` includes Horizon OS-specific configuration:
 ```
 
 - `horizonos:` namespace: `http://schemas.horizonos/sdk`
+- `horizonos:minSdkVersion` is the oldest installable Horizon OS release.
+- `horizonos:targetSdkVersion` opts into behavior through that Horizon OS
+  release and should advance independently of the minimum.
+- Horizon OS SDK levels are separate from Android's `minSdk` and `targetSdk`.
 - `android:launchMode="singleTask"` — standard for Quest apps
 - `android:configChanges` — handles orientation/size changes without activity restart
 

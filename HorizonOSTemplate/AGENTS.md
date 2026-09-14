@@ -89,16 +89,21 @@ This template uses Meta's UISet design system:
 <!-- Required: Horizon OS SDK version targeting -->
 <horizonos:uses-horizonos-sdk
   horizonos:minSdkVersion="69"
-  horizonos:targetSdkVersion="69" />
+  horizonos:targetSdkVersion="207" />
 
 <!-- Supported Quest devices -->
 <meta-data
   android:name="com.oculus.supportedDevices"
-  android:value="quest2|questpro|quest3" />
+  android:value="quest2|questpro|quest3|quest3s" />
 
 <!-- Panel default size (2D app window dimensions) -->
 <layout android:defaultHeight="640dp" android:defaultWidth="1024dp" />
 ```
+
+- `horizonos:minSdkVersion` is the oldest installable Horizon OS release.
+- `horizonos:targetSdkVersion` opts into behavior through that Horizon OS
+  release and should advance independently of the minimum.
+- These values are separate from Android's `minSdk` and `targetSdk`.
 
 ## Platform Constraints (Horizon OS)
 

@@ -16,7 +16,7 @@ lifecycleRuntimeKtx = "2.8.6"
 composeBom = "2024.09.03"
 
 [libraries]
-# Meta Spatial SDK Libraries
+# Meta UISet for Horizon-styled standard Android UI
 meta-spatial-sdk-uiset = { group = "com.meta.spatial", name = "meta-spatial-sdk-uiset", version.ref = "spatialsdk" }
 
 # Core Android Libraries

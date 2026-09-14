@@ -10,9 +10,12 @@
   android:installLocation="auto"
 >
 
+  <!-- Horizon OS SDK levels are separate from Android SDK levels. The minimum
+       keeps the app installable on older releases, while the target opts the
+       app into Horizon OS behavior through v207. -->
   <horizonos:uses-horizonos-sdk
     horizonos:minSdkVersion="69"
-    horizonos:targetSdkVersion="69"
+    horizonos:targetSdkVersion="207"
   />
   <uses-permission android:name="android.permission.INTERNET" />
   <application
@@ -20,10 +23,13 @@
     android:label="HorizonOSTemplate"
     android:theme="@style/Theme.AppTheme"
   >
+    <!-- Advertise the headset families supported by this starter project. -->
     <meta-data
       android:name="com.oculus.supportedDevices"
-      android:value="quest2|questpro|quest3"
+      android:value="quest2|questpro|quest3|quest3s"
     />
+    <!-- Keep this activity alive while the Horizon OS panel is resized or its
+         input configuration changes. -->
     <activity
       android:name="com.meta.horizon.samples.horizonostemplate.MainActivity"
       android:launchMode="singleTask"
@@ -34,6 +40,8 @@
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
+      <!-- Initial panel dimensions. The UI must remain responsive when the user
+           resizes the panel. -->
       <layout
         android:defaultHeight="640dp"
         android:defaultWidth="1024dp" />

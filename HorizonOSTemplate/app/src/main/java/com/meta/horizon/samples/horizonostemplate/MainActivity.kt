@@ -75,7 +75,9 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
+      // UISet provides Horizon OS panel colors, shapes, and typography on top of Compose.
       SpatialTheme {
+        // UISet's dark panel palette expects descendants to inherit a light content color.
         CompositionLocalProvider(
             LocalContentColor provides LocalColorScheme.current.primaryAlphaBackground,
         ) {
@@ -90,6 +92,8 @@ class MainActivity : ComponentActivity() {
 fun HorizonOSApp() {
   var selectedTab by remember { mutableIntStateOf(0) }
 
+  // Horizon OS presents the activity as a resizable panel, so paint the UISet panel
+  // background explicitly and keep the content responsive to the available bounds.
   Row(
       modifier =
           Modifier.fillMaxSize()
