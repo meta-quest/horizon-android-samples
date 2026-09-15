@@ -43,3 +43,12 @@ color explicitly because UISet components assume a dark panel surface.
 ## Documentation
 
 - [Horizon OS Documentation](https://developers.meta.com/horizon/develop/android-apps/)
+
+## Troubleshooting
+
+### Gradle uses the wrong JDK
+
+If the project cannot build or sync because Gradle is using an incompatible JDK, select JDK 17.
+For command-line builds, set `JAVA_HOME` to your JDK 17 installation directory before running the
+Gradle wrapper again. In Android Studio, set **Gradle JDK** to JDK 17 under **Settings** > **Build,
+Execution, Deployment** > **Build Tools** > **Gradle**.
