@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CookVrx" parent="android:Theme.Material.NoActionBar">
+        <item name="android:fontFamily">serif</item>
+        <item name="android:windowBackground">#F4E8D0</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">#241B16</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

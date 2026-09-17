@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.metavrx.layout.cookvrx">
+
+  <!-- targetSdk is pinned to the Horizon OS platform level the sample is published against. -->
+  <uses-sdk
+      android:minSdkVersion="28"
+      android:targetSdkVersion="34"
+      tools:ignore="OldTargetApi" />
+
+  <application
+      android:icon="@mipmap/ic_launcher"
+      android:label="CookVrx"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:theme="@style/Theme.CookVrx">
+
+    <activity
+        android:name=".CookVrxActivity"
+        android:configChanges="keyboard|keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation|uiMode|density"
+        android:exported="true"
+        android:launchMode="singleTop">
+
+      <layout
+          android:defaultHeight="560dp"
+          android:defaultWidth="780dp" />
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <action android:name="com.oculus.vrshell.SHELL_MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
+      <meta-data
+          android:name="com.oculus.vrshell.supports_layers"
+          android:value="true" />
+    </activity>
+  </application>
+
+</manifest>

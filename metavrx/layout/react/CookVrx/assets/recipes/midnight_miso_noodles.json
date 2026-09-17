@@ -1,0 +1,25 @@
+{
+  "id": "midnight_miso_noodles",
+  "title": "Midnight Miso Noodles",
+  "category": "Quick",
+  "image": "midnight_miso_noodles.jpg",
+  "servings": 2,
+  "totalMinutes": 18,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "8 oz ramen or wheat noodles"},
+    {"text": "2 tbsp white miso"},
+    {"text": "2 tbsp unsalted butter"},
+    {"text": "1 tbsp soy sauce"},
+    {"text": "1 tsp brown sugar"},
+    {"text": "2 scallions, thinly sliced"},
+    {"text": "1 egg yolk", "tip": "Optional, but makes the sauce glossy"},
+    {"text": "Toasted sesame and chile oil"}
+  ],
+  "steps": [
+    {"text": "Boil the noodles one minute shy of their package directions. Save a mug of cooking water.", "timerSeconds": 180},
+    {"text": "Mash the miso, butter, soy, sugar, and egg yolk into a smooth paste.", "timerSeconds": 0},
+    {"text": "Toss the hot noodles through the paste off heat, loosening with cooking water until glossy.", "timerSeconds": 0},
+    {"text": "Twirl into bowls and finish with scallions, sesame, and enough chile oil to wake you up.", "timerSeconds": 0}
+  ]
+}

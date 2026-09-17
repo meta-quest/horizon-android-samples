@@ -1,0 +1,11 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "strict": true,
+    "resolveJsonModule": true,
+    // The RN base config declares `types: ["jest"]`; this sample ships no tests
+    // and therefore no @types/jest.
+    "types": []
+  },
+  "include": ["App.tsx", "index.js", "src/**/*"]
+}

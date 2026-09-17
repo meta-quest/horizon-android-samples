@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) Meta Platforms, Inc. and affiliates.
+
+  This source code is licensed under the MIT license found in the
+  LICENSE file in the root directory of this source tree.
+-->
+<!--
+  Debug-only manifest. The merger applies it to the debug variant alone, so neither
+  declaration below can reach a release APK.
+
+  Both exist solely so Metro can serve the JS bundle during development: it runs over
+  plain HTTP on localhost:8081, reached via `adb reverse`. The sample makes no network
+  calls of its own, and a release build embeds the bundle as an asset, so a shipped APK
+  needs neither.
+
+  Cleartext is granted per host rather than with android:usesCleartextTraffic="true".
+  That attribute is what the React Native template ships, but it lifts the platform's
+  cleartext ban for every destination the process can reach; the config named below
+  lifts it for the loopback hosts Metro lives on and nothing else.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:networkSecurityConfig="@xml/network_security_config" />
+
+</manifest>

@@ -1,0 +1,26 @@
+{
+  "id": "citrus_olive_cake",
+  "title": "Citrus Olive Oil Cake",
+  "category": "Baking",
+  "image": "citrus_olive_cake.jpg",
+  "servings": 8,
+  "totalMinutes": 65,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "1 3/4 cups all-purpose flour"},
+    {"text": "1 cup sugar"},
+    {"text": "3 eggs, room temperature", "tip": "Warm cold eggs in tap water for 5 minutes"},
+    {"text": "3/4 cup fruity olive oil"},
+    {"text": "1/2 cup Greek yogurt"},
+    {"text": "1 orange and 1 lemon, zested"},
+    {"text": "1 1/2 tsp baking powder"},
+    {"text": "Flaky salt, for the top"}
+  ],
+  "steps": [
+    {"text": "Heat the oven to 350°F and line a 9-inch cake pan with parchment.", "timerSeconds": 0},
+    {"text": "Rub the citrus zest into the sugar until fragrant, then whisk in the eggs until pale.", "timerSeconds": 180},
+    {"text": "Stream in the olive oil, whisk in yogurt, then fold in flour, baking powder, and salt.", "timerSeconds": 0},
+    {"text": "Bake until bronzed and a tester comes out with a few moist crumbs.", "timerSeconds": 2400},
+    {"text": "Cool in the pan before turning out. Finish with olive oil and flaky salt.", "timerSeconds": 900}
+  ]
+}

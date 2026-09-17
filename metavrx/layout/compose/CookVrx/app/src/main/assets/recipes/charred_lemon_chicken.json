@@ -1,0 +1,25 @@
+{
+  "id": "charred_lemon_chicken",
+  "title": "Charred Lemon Chicken",
+  "category": "Mains",
+  "image": "charred_lemon_chicken.jpg",
+  "servings": 4,
+  "totalMinutes": 45,
+  "difficulty": "Medium",
+  "ingredients": [
+    {"text": "6 bone-in chicken thighs", "tip": "Pat very dry for crisp skin"},
+    {"text": "2 lemons, halved"},
+    {"text": "4 garlic cloves, smashed"},
+    {"text": "2 tbsp honey"},
+    {"text": "1 tsp fennel seeds", "tip": "Crush lightly with the side of a knife"},
+    {"text": "1 bunch broccolini"},
+    {"text": "Olive oil, salt, and black pepper"}
+  ],
+  "steps": [
+    {"text": "Season the chicken aggressively with salt, pepper, and crushed fennel seed.", "timerSeconds": 0},
+    {"text": "Sear skin-side down in a heavy skillet until deeply golden and the fat renders.", "timerSeconds": 600},
+    {"text": "Turn the chicken, tuck in garlic and lemon halves, and brush everything with honey.", "timerSeconds": 0},
+    {"text": "Roast until the chicken is cooked through and the lemons slump and caramelize.", "timerSeconds": 1200},
+    {"text": "Wilt the broccolini in the pan juices, then squeeze over the charred lemon.", "timerSeconds": 180}
+  ]
+}

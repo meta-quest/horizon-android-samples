@@ -1,0 +1,26 @@
+{
+  "id": "crispy_mushroom_rice",
+  "title": "Crispy Mushroom Rice",
+  "category": "Mains",
+  "image": "crispy_mushroom_rice.jpg",
+  "servings": 3,
+  "totalMinutes": 35,
+  "difficulty": "Medium",
+  "ingredients": [
+    {"text": "3 cups cold cooked rice", "tip": "Day-old rice crisps best"},
+    {"text": "12 oz mixed mushrooms, torn"},
+    {"text": "3 scallions, sliced"},
+    {"text": "2 tbsp soy sauce"},
+    {"text": "1 tbsp rice vinegar"},
+    {"text": "1 tsp toasted sesame oil"},
+    {"text": "2 eggs"},
+    {"text": "Chile crisp, to serve"}
+  ],
+  "steps": [
+    {"text": "Sear the mushrooms in a wide hot pan without moving until their edges go crisp.", "timerSeconds": 300},
+    {"text": "Add scallion whites and rice, pressing the rice into an even layer against the pan.", "timerSeconds": 0},
+    {"text": "Leave the rice untouched until a golden crust forms underneath.", "timerSeconds": 420},
+    {"text": "Toss with soy, vinegar, and sesame oil; fry the eggs in the cleared side of the pan.", "timerSeconds": 180},
+    {"text": "Spoon into bowls and crown with egg, scallion greens, and chile crisp.", "timerSeconds": 0}
+  ]
+}

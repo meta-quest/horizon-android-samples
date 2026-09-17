@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Mirrors DishArtwork() in ui/Theme.kt using the market_tomato_toast palette:
+  a toast-toned plate, a tomato centre, and a basil garnish. Diameters keep the
+  composable's 62 / 34 / 16 proportions. The plate is 48 of the 108 canvas so the
+  rim still clears the mask once the launcher crops to the central 72dp viewport.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- plate -->
+    <path
+        android:pathData="M54,30 a24,24 0 1 0 0,48 a24,24 0 1 0 0,-48 z"
+        android:fillColor="#D9A96E" />
+
+    <!-- cream rim, stroked inside the plate edge -->
+    <path
+        android:pathData="M54,32 a22,22 0 1 0 0,44 a22,22 0 1 0 0,-44 z"
+        android:strokeColor="#FFF8E9"
+        android:strokeWidth="4"
+        android:strokeAlpha="0.7" />
+
+    <!-- tomato -->
+    <path
+        android:pathData="M54,40.8 a13.2,13.2 0 1 0 0,26.4 a13.2,13.2 0 1 0 0,-26.4 z"
+        android:fillColor="#C22D29" />
+
+    <!-- basil garnish -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="18">
+        <path
+            android:pathData="M52.8,47.8 h2.4 a5,5 0 0 1 5,5 v2.4 a5,5 0 0 1 -5,5 h-2.4 a5,5 0 0 1 -5,-5 v-2.4 a5,5 0 0 1 5,-5 z"
+            android:fillColor="#416943" />
+    </group>
+</vector>

@@ -1,0 +1,26 @@
+{
+  "id": "smoky_shakshuka",
+  "title": "Smoky Shakshuka",
+  "category": "Breakfast",
+  "image": "smoky_shakshuka.jpg",
+  "servings": 3,
+  "totalMinutes": 30,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "2 tbsp olive oil"},
+    {"text": "1 red bell pepper, sliced"},
+    {"text": "1 small onion, sliced"},
+    {"text": "3 garlic cloves, chopped"},
+    {"text": "1 tsp smoked paprika"},
+    {"text": "1 can crushed tomatoes"},
+    {"text": "5 eggs"},
+    {"text": "Feta and cilantro, to serve", "tip": "Parsley is a quieter substitute"}
+  ],
+  "steps": [
+    {"text": "Soften the pepper and onion in olive oil until sweet and beginning to char.", "timerSeconds": 480},
+    {"text": "Stir in garlic and smoked paprika until the pan smells toasty.", "timerSeconds": 60},
+    {"text": "Add tomatoes, season, and simmer until the sauce mounds on a spoon.", "timerSeconds": 600},
+    {"text": "Make five wells, crack in the eggs, cover, and cook until the whites set but yolks wobble.", "timerSeconds": 420},
+    {"text": "Scatter with feta and cilantro. Bring the whole skillet and plenty of bread to the table.", "timerSeconds": 0}
+  ]
+}

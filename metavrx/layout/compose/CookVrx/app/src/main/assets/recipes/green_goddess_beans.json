@@ -1,0 +1,24 @@
+{
+  "id": "green_goddess_beans",
+  "title": "Green Goddess Beans",
+  "category": "Quick",
+  "image": "green_goddess_beans.jpg",
+  "servings": 2,
+  "totalMinutes": 20,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "2 cans butter beans, drained"},
+    {"text": "1 cup basil and parsley"},
+    {"text": "1 small avocado"},
+    {"text": "1 lemon, juiced"},
+    {"text": "1 garlic clove"},
+    {"text": "2 tbsp capers", "tip": "Save a splash of the brine"},
+    {"text": "2 thick slices sourdough"}
+  ],
+  "steps": [
+    {"text": "Blend the herbs, avocado, lemon, garlic, capers, and a splash of water until vivid green.", "timerSeconds": 0},
+    {"text": "Warm the beans gently with olive oil, salt, and a spoonful of caper brine.", "timerSeconds": 300},
+    {"text": "Toast the sourdough hard enough to scrape with a garlic clove.", "timerSeconds": 240},
+    {"text": "Fold the green sauce through the warm beans and pile over toast.", "timerSeconds": 0}
+  ]
+}

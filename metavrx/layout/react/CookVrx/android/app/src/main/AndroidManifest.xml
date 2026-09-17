@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) Meta Platforms, Inc. and affiliates.
+
+  This source code is licensed under the MIT license found in the
+  LICENSE file in the root directory of this source tree.
+-->
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- No <uses-sdk> here: AGP injects minSdk / targetSdk from the DSL in
+       android/app/build.gradle.kts, and a second copy in the manifest only drifts. It did —
+       the 24 declared here had to be hand-bumped alongside the DSL once the SDK autolinked. -->
+
+  <!-- Required for the SDK to promote content into VWM child windows. The
+       layout-react-compat AAR does not contribute it, so every consuming app
+       declares it itself. -->
+  <uses-permission android:name="horizonos.permission.MANAGE_APP_VOLUMETRIC_WINDOWS" />
+
+  <!-- No INTERNET permission and no cleartext opt-in here on purpose. Metro serves the JS bundle
+       over plain HTTP, but only in debug builds, so both declarations live in
+       src/debug/AndroidManifest.xml and the merger folds them into the debug variant alone. The
+       sample makes no network calls of its own, and a release build ships the JS as an asset, so a
+       shipped APK requests neither. -->
+
+  <application
+      android:name=".MainApplication"
+      android:allowBackup="false"
+      android:label="@string/app_name"
+      android:theme="@style/AppTheme">
+
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:launchMode="singleTop"
+        android:configChanges="keyboard|keyboardHidden|screenSize|orientation|uiMode|smallestScreenSize|screenLayout|density">
+
+      <!-- Default activity size on Quest's 2D shell. Wide enough to host the
+           recipe library plus the detail / ingredients / timers child windows
+           previewed inline when running on flat Android (inline fallback). On Quest, child
+           `SpatialWindow`s promote into separate VWM child windows and the
+           main activity stays at this size. -->
+      <layout
+          android:defaultHeight="800dp"
+          android:defaultWidth="1200dp" />
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <!-- Quest 2D shell entry point; matches the Compose Layout samples. -->
+        <action android:name="com.oculus.vrshell.SHELL_MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
+      <!-- VWM uses surface layers for child windows; the 2D shell needs this
+           hint to allow the activity to render with layered surfaces. -->
+      <meta-data
+          android:name="com.oculus.vrshell.supports_layers"
+          android:value="true" />
+    </activity>
+  </application>
+
+</manifest>

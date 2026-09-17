@@ -1,0 +1,16 @@
+[versions]
+agp = "8.6.1"
+kotlin = "2.2.0"
+# No `react-android` / `hermes-android` pins here: this sample applies the
+# `com.facebook.react` Gradle plugin, which forces both to the versions the
+# installed `react-native` package declares. Pinning them by hand cannot keep the
+# native runtime, the Hermes engine, and the JS Metro serves in agreement on its own.
+metavrx-bom = "1.2026.0.1"
+
+[libraries]
+metavrx-bom = { module = "com.meta.metavrx:metavrx-bom", version.ref = "metavrx-bom" }
+metavrx-layout-window-react-compat = { module = "com.meta.metavrx.layout:layout-window-react-compat" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

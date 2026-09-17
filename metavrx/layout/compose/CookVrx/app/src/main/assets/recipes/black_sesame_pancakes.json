@@ -1,0 +1,26 @@
+{
+  "id": "black_sesame_pancakes",
+  "title": "Black Sesame Pancakes",
+  "category": "Breakfast",
+  "image": "black_sesame_pancakes.jpg",
+  "servings": 4,
+  "totalMinutes": 25,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "1 1/2 cups all-purpose flour", "tip": "Spoon and level for a tender crumb"},
+    {"text": "3 tbsp toasted black sesame seeds", "tip": "Grind half for deeper flavor"},
+    {"text": "2 tbsp sugar"},
+    {"text": "2 tsp baking powder"},
+    {"text": "1 1/4 cups whole milk", "tip": "Oat milk works well too"},
+    {"text": "1 egg"},
+    {"text": "3 tbsp melted butter"},
+    {"text": "Maple syrup and berries, to serve"}
+  ],
+  "steps": [
+    {"text": "Whisk the flour, sesame, sugar, baking powder, and a pinch of salt.", "timerSeconds": 0},
+    {"text": "Beat the milk, egg, and melted butter, then fold into the dry mix just until streak-free.", "timerSeconds": 0},
+    {"text": "Rest the batter so the flour hydrates and the pancakes cook evenly.", "timerSeconds": 600},
+    {"text": "Cook small rounds in a buttered skillet until bubbles set at the edges, then flip.", "timerSeconds": 120},
+    {"text": "Stack high and finish with berries, maple syrup, and a final scatter of sesame.", "timerSeconds": 0}
+  ]
+}

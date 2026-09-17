@@ -1,0 +1,24 @@
+{
+  "id": "market_tomato_toast",
+  "title": "Market Tomato Toast",
+  "category": "Quick",
+  "image": "market_tomato_toast.jpg",
+  "servings": 2,
+  "totalMinutes": 15,
+  "difficulty": "Easy",
+  "ingredients": [
+    {"text": "3 ripe tomatoes, mixed colors", "tip": "Salt them before you toast the bread"},
+    {"text": "2 thick slices country bread"},
+    {"text": "1 garlic clove, halved"},
+    {"text": "1/2 cup ricotta"},
+    {"text": "1 tsp red wine vinegar"},
+    {"text": "Basil leaves"},
+    {"text": "Olive oil and flaky salt"}
+  ],
+  "steps": [
+    {"text": "Cut the tomatoes into unruly chunks and season with salt, vinegar, and olive oil.", "timerSeconds": 300},
+    {"text": "Toast the bread until deeply golden, then rub the hot surface with garlic.", "timerSeconds": 240},
+    {"text": "Spread with ricotta and heap on the tomatoes and every drop of their juice.", "timerSeconds": 0},
+    {"text": "Tear basil over the top and finish with flaky salt and black pepper.", "timerSeconds": 0}
+  ]
+}

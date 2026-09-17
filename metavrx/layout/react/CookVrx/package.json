@@ -1,0 +1,28 @@
+{
+  "name": "cookvrxrn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "@metavr/layout-compat": "^1.0.1",
+    "@metavr/layout-window-compat": "^1.0.1",
+    "react": "19.2.3",
+    "react-native": "0.85.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.0",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "^20.2.0",
+    "@react-native/babel-preset": "0.85.0",
+    "@react-native/metro-config": "0.85.0",
+    "@react-native/typescript-config": "0.85.0",
+    "@types/react": "^19.0.0",
+    "typescript": "5.5.4"
+  },
+  "engines": {
+    "node": ">=20.19.4"
+  }
+}
