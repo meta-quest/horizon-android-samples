@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -70,6 +71,11 @@ import com.meta.spatial.uiset.theme.SpatialTheme
 private val AccentBlue = Color(0xFF47A5FA)
 private val PanelBottom = Color(0xFF272727)
 
+// Look and pinch is the default input method on devices that ship without controllers, and it is
+// less precise than a controller ray. Interactive targets must be at least 48dp; 60dp is the
+// recommended size, roughly 3 degrees of visual angle at the default panel distance.
+private val LookAndPinchMinTargetHeight = 60.dp
+
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -109,6 +115,7 @@ fun HorizonOSApp() {
     ) {
       item {
         SpatialSideNavItem(
+            modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             onClick = { selectedTab = 0 },
             primaryLabel = "Home",
@@ -117,6 +124,7 @@ fun HorizonOSApp() {
       }
       item {
         SpatialSideNavItem(
+            modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
             icon = { Icon(Icons.Default.Star, contentDescription = "Features") },
             onClick = { selectedTab = 1 },
             primaryLabel = "Features",
@@ -125,6 +133,7 @@ fun HorizonOSApp() {
       }
       item {
         SpatialSideNavItem(
+            modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
             icon = { Icon(Icons.Default.Build, contentDescription = "Tools") },
             onClick = { selectedTab = 2 },
             primaryLabel = "Tools",

@@ -9,6 +9,8 @@ Single-activity Compose app. `MainActivity` is the only activity — all UI is b
 - `MainActivity.kt` — App entry point and all composables (intentionally single-file for template simplicity)
 - `AndroidManifest.xml` — Activity registration, Horizon OS SDK targeting, panel dimensions
 - `res/drawable/ic_meta_logo.xml` — Meta logo vector used on the Home tab
+- `res/values/strings.xml` — `app_name`, used as the activity label
+- `res/values/styles.xml` — `Theme.AppTheme`, referenced by the manifest
 
 ## UI Structure
 
@@ -41,7 +43,7 @@ Tab switching uses `AnimatedContent` with `fadeIn() togetherWith fadeOut()` tran
 | `ScrollableTabContent()` | Scrollable column with bottom gradient fade overlay |
 | `InfoCard()` | Reusable card with accent icon, title, description |
 | `HomeContent()` | Welcome tab with Meta logo and getting-started info |
-| `FeaturesContent()` | Platform features overview |
+| `FeaturesContent()` | Horizon OS features overview |
 | `ToolsContent()` | Developer tools overview |
 
 ## Color Constants
@@ -68,7 +70,7 @@ implementation(libs.your.new.library)
 ```
 
 ### Change app name
-Update `android:label` in `AndroidManifest.xml`.
+Update `app_name` in `app/src/main/res/values/strings.xml`.
 
 ### Change app package
 Update in three places:

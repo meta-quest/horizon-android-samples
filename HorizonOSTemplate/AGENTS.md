@@ -12,6 +12,8 @@ HorizonOSTemplate/
         MainActivity.kt          # Single-activity Compose app (all UI in one file)
       res/
         drawable/ic_meta_logo.xml # Meta logo vector drawable
+        values/strings.xml        # app_name, used as the activity label
+        values/styles.xml         # Theme.AppTheme, referenced by the manifest
       AndroidManifest.xml         # Horizon OS manifest with panel layout
     build.gradle.kts              # App module: dependencies, SDK config
   gradle/libs.versions.toml       # Version catalog (Spatial SDK, Compose, etc.)
@@ -54,7 +56,7 @@ MainActivity (ComponentActivity)
 | `ScrollableTabContent()` | Scrollable column with bottom gradient fade overlay |
 | `InfoCard()` | Reusable card with accent icon, title, description |
 | `HomeContent()` | Welcome tab with Meta logo and getting-started info |
-| `FeaturesContent()` | Platform features overview |
+| `FeaturesContent()` | Horizon OS features overview |
 | `ToolsContent()` | Developer tools overview |
 
 ## Key Dependencies
@@ -87,6 +89,11 @@ This template uses Meta's UISet design system:
 
 ```xml
 <!-- Required: Horizon OS SDK version targeting -->
+<metavr:uses-metavr-sdk
+  metavr:minSdkVersion="69"
+  metavr:targetSdkVersion="207" />
+
+<!-- Legacy form of the same declaration, still accepted; keep the levels identical -->
 <horizonos:uses-horizonos-sdk
   horizonos:minSdkVersion="69"
   horizonos:targetSdkVersion="207" />
@@ -100,12 +107,48 @@ This template uses Meta's UISet design system:
 <layout android:defaultHeight="640dp" android:defaultWidth="1024dp" />
 ```
 
-- `horizonos:minSdkVersion` is the oldest installable Horizon OS release.
-- `horizonos:targetSdkVersion` opts into behavior through that Horizon OS
+- `metavr:` namespace: `http://schemas.meta.com/metavr-sdk`; `horizonos:` namespace:
+  `http://schemas.horizonos/sdk`.
+- Both elements are declared. Horizon OS and the Developer Dashboard still accept the
+  legacy one, and the Meta VR SDK AARs declare both themselves. Their levels must match,
+  or the merged manifest carries two different floors.
+- `minSdkVersion` is the oldest installable Horizon OS release.
+- `targetSdkVersion` opts into behavior through that Horizon OS
   release and should advance independently of the minimum.
 - These values are separate from Android's `minSdk` and `targetSdk`.
 
-## Platform Constraints (Horizon OS)
+## Look and Pinch
+
+Look and pinch is the **default input method on devices that ship without controllers**, so these
+are requirements, not preferences. Two Horizon OS facts drive all of them:
+
+- **The app receives no hover events.** Raw eye-tracking data is never exposed to panel
+  applications, so hover is not delivered. Pointer events behave like touch, and anything that
+  depends on hover state will not work.
+- **The app never receives the user's gaze.** The *system* draws the hover and selection
+  affordance from its own "UI Understanding" of the panel. An element the system does not
+  recognise as interactive gets no affordance, even if it responds to a pinch, so the user cannot
+  tell it is targetable.
+
+Rules for this template:
+
+| Rule | How it is done here |
+|---|---|
+| Interactive targets are at least 48dp, 60dp recommended | `LookAndPinchMinTargetHeight` is applied to every side-nav item |
+| Make interactivity visible to the system | Use `Modifier.clickable`, or a component that takes an `onClick`. Do not draw a bare `Canvas` and handle raw pointer input |
+| Never put a click listener on static content | A stray `Modifier.clickable` makes the system draw a highlight on something the user cannot act on |
+| Group cards as one target | Put the click listener on the parent container, never on the children, or each child highlights separately |
+| Declare the shape before the click | Put `Modifier.clip(shape)` before `clickable`, or give both the same shape — otherwise the system highlights the rectangular bounds |
+| Do not style `state_hovered` | Look and pinch never delivers hover events. Style the pressed and selected states instead |
+
+Shape inference needs **Jetpack Compose 1.10.0 or newer**. This template's Compose BOM
+(`2024.09.03`) resolves 1.7.x, so the system highlight falls back to rectangular bounds until the
+BOM is raised. Everything else above applies regardless of the Compose version.
+
+Native tooltips never appear under look and pinch. A tooltip carrying real meaning has to move to
+the Gaze SDK, which is not a dependency of this template.
+
+## Horizon OS Constraints
 
 These Android features are NOT available on Horizon OS:
 - Google Mobile Services (GMS) — Auth, Location, Ads, Billing
@@ -126,7 +169,7 @@ Use Android-native alternatives where available (e.g., `LocationManager` instead
 
 - **Change panel dimensions:** Edit `<layout>` in `AndroidManifest.xml`
 - **Add a dependency:** Add to `gradle/libs.versions.toml` under `[libraries]`, reference in `app/build.gradle.kts`
-- **Change app name:** Update `android:label` in `AndroidManifest.xml`
+- **Change app name:** Update `app_name` in `app/src/main/res/values/strings.xml`
 - **Change app package:** Update `namespace`/`applicationId` in `app/build.gradle.kts`, `android:name` in manifest, and Kotlin package declaration
 
 ## Going Immersive (Spatial SDK)

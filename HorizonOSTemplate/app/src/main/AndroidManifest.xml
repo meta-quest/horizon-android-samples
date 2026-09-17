@@ -5,6 +5,7 @@
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:horizonos="http://schemas.horizonos/sdk"
+  xmlns:metavr="http://schemas.meta.com/metavr-sdk"
   android:versionCode="1"
   android:versionName="1.0"
   android:installLocation="auto"
@@ -13,6 +14,14 @@
   <!-- Horizon OS SDK levels are separate from Android SDK levels. The minimum
        keeps the app installable on older releases, while the target opts the
        app into Horizon OS behavior through v207. -->
+  <metavr:uses-metavr-sdk
+    metavr:minSdkVersion="69"
+    metavr:targetSdkVersion="207"
+  />
+  <!-- The legacy element stays alongside the current one: Horizon OS and the
+       Developer Dashboard still accept it, and the Meta VR SDK AARs declare both
+       themselves. Keep its levels identical to the current element, or the
+       merged manifest carries two different floors. -->
   <horizonos:uses-horizonos-sdk
     horizonos:minSdkVersion="69"
     horizonos:targetSdkVersion="207"
@@ -20,7 +29,7 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <application
     android:allowBackup="false"
-    android:label="HorizonOSTemplate"
+    android:label="@string/app_name"
     android:theme="@style/Theme.AppTheme"
   >
     <!-- Advertise the headset families supported by this starter project. -->
@@ -33,7 +42,7 @@
     <activity
       android:name="com.meta.horizon.samples.horizonostemplate.MainActivity"
       android:launchMode="singleTask"
-      android:configChanges="screenSize|screenLayout|orientation|keyboardHidden|keyboard|navigation|uiMode"
+      android:configChanges="density|keyboard|keyboardHidden|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
       android:exported="true"
     >
       <intent-filter>

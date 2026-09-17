@@ -20,11 +20,15 @@ change its build path.
 The manifest contains Horizon OS configuration that is independent of the
 Android SDK levels in `app/build.gradle.kts`:
 
-- `horizonos:minSdkVersion="69"` is the oldest Horizon OS release on which the
-  app may be installed.
-- `horizonos:targetSdkVersion="207"` opts the app into platform behavior through
-  Horizon OS v207. Update this target when adopting a newer Horizon OS release;
-  do not raise the minimum unless the app requires newer APIs.
+- `minSdkVersion="69"` is the oldest Horizon OS release on which the app may be
+  installed.
+- `targetSdkVersion="207"` opts the app into Horizon OS behavior through v207.
+  Update this target when adopting a newer Horizon OS release; do not raise the
+  minimum unless the app requires newer APIs.
+- Both are declared twice, as `<metavr:uses-metavr-sdk>` and as the legacy
+  `<horizonos:uses-horizonos-sdk>`. Horizon OS and the Developer Dashboard
+  still accept the legacy element, and the Meta VR SDK AARs declare both
+  themselves. Keep the two sets of levels identical.
 - `com.oculus.supportedDevices` declares the headset families supported by the
   app.
 - The activity's `<layout>` sets the initial 2D panel size. Users can resize the
