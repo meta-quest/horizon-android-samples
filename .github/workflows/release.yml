@@ -18,9 +18,14 @@ jobs:
         run: |
           echo "RELEASE_TAG=$(date +'%Y.%m.%d-%H%M%S')" >> $GITHUB_ENV
 
+      # Keep these exclusions in step with _TEMPLATE_EXCLUDES in the root BUCK file. The bundled
+      # zip and this published zip must be the same bytes: the bundled one is the primary path
+      # for a new plugin until the repo publishes, and the downloaded one is primary afterwards,
+      # so a divergence here reproduces a bug on one path and not the other.
       - name: Zip directory
         run: |
-          zip -r HorizonOSTemplate.zip HorizonOSTemplate
+          zip -r HorizonOSTemplate.zip HorizonOSTemplate \
+            -x "*/build/*" "*/.gradle/*" "*/.kotlin/*" "*/local.properties" "*.iml" "*/.DS_Store"
 
       - name: Create GitHub Release and upload assets
         env:
