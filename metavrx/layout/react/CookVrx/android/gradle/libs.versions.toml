@@ -5,7 +5,7 @@ kotlin = "2.2.0"
 # `com.facebook.react` Gradle plugin, which forces both to the versions the
 # installed `react-native` package declares. Pinning them by hand cannot keep the
 # native runtime, the Hermes engine, and the JS Metro serves in agreement on its own.
-metavrx-bom = "1.2026.0.1"
+metavrx-bom = "1.2026.0.0"
 
 [libraries]
 metavrx-bom = { module = "com.meta.metavrx:metavrx-bom", version.ref = "metavrx-bom" }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name" description="Application name shown in the launcher and title bar">GalleryVrx</string>
+  <string name="icon_add_content_description" description="Accessibility label for an add icon button in the UI Set gallery">Add</string>
+  <string name="icon_settings_content_description" description="Accessibility label for a settings icon button in the UI Set gallery">Settings</string>
+  <string name="icon_bookmark_content_description" description="Accessibility label for a bookmark icon button in the UI Set gallery">Bookmark</string>
+  <string name="icon_close_content_description" description="Accessibility label for a close icon button in the UI Set gallery">Close</string>
+  <string name="theme_toggle_content_description" description="Accessibility label for the gallery light and dark theme switch">Dark theme</string>
+  <string name="pink_checkbox_content_description" description="Accessibility label for the pink accent checkbox example">Pink accent checkbox</string>
+  <string name="small_slider_content_description" description="Accessibility label for the small slider example">Small slider</string>
+  <string name="medium_slider_content_description" description="Accessibility label for the medium slider example">Medium slider</string>
+  <string name="large_slider_content_description" description="Accessibility label for the large slider example">Large slider</string>
+  <string name="brightness_slider_content_description" description="Accessibility label for the brightness slider example">Brightness</string>
+  <string name="volume_slider_content_description" description="Accessibility label for the volume slider example">Volume</string>
+  <string name="disabled_slider_content_description" description="Accessibility label for the disabled slider example">Disabled slider</string>
+</resources>

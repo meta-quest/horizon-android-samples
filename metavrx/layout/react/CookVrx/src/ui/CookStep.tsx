@@ -13,6 +13,7 @@ import type {StyleProp, ViewStyle} from 'react-native';
 import {useCookVrxTheme, withAlpha} from '../theme/theme';
 import {
   BorderedButton,
+  CloseButton,
   Eyebrow,
   formatClock,
   PrimaryButton,
@@ -62,14 +63,24 @@ export function CookStep({
             {recipe.title}
           </Text>
         </View>
-        <View
-          style={[
-            styles.badge,
-            {backgroundColor: colors.tomato, padding: dimensions.stepBadgePadding},
-          ]}>
-          <Eyebrow
-            text={isComplete ? 'Done' : `${stepIndex + 1}/${recipe.steps.length}`}
-            color={colors.cream}
+        <View style={[styles.headerActions, {gap: dimensions.stepControlSpacing}]}>
+          <View
+            style={[
+              styles.badge,
+              {
+                backgroundColor: colors.tomato,
+                padding: dimensions.stepBadgePadding,
+              },
+            ]}>
+            <Eyebrow
+              text={isComplete ? 'Done' : `${stepIndex + 1}/${recipe.steps.length}`}
+              color={colors.cream}
+            />
+          </View>
+          <CloseButton
+            onPress={onReturnToLibrary}
+            accessibilityLabel="Exit cooking"
+            background={colors.cream}
           />
         </View>
       </View>
@@ -184,6 +195,10 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerActions: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
   badge: {

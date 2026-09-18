@@ -55,7 +55,6 @@ export type CookbookDimensions = Readonly<{
   detailWindowWidth: number;
   detailWindowHeight: number;
   cookToolWindowWidth: number;
-  cookToolWindowHeight: number;
   inlineCookToolWidth: number;
   mobileCookToolHeight: number;
   mobileToolPickerHorizontalPadding: number;
@@ -184,7 +183,6 @@ export const defaultCookbookDimensions: CookbookDimensions = {
   detailWindowWidth: 360,
   detailWindowHeight: 560,
   cookToolWindowWidth: 300,
-  cookToolWindowHeight: 540,
   inlineCookToolWidth: 230,
   mobileCookToolHeight: 230,
   mobileToolPickerHorizontalPadding: 16,
@@ -283,7 +281,7 @@ export const defaultCookbookDimensions: CookbookDimensions = {
   displayLineHeight: 40,
   displayLetterSpacing: -1.2,
   titleFontSize: 26,
-  titleLineHeight: 28,
+  titleLineHeight: 32,
   titleLetterSpacing: -0.4,
   recipeTitleFontSize: 20,
   recipeTitleLineHeight: 22,

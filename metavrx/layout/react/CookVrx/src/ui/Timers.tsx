@@ -131,7 +131,11 @@ function TimerCard({
       variant={finished ? 'primary' : 'secondary'}
       contentPadding={dimensions.timerCardPadding}>
       <View style={styles.cardHeader}>
-        <Eyebrow text={finished ? 'Ready now' : timer.label} color={colors.ink} />
+        <Eyebrow
+          text={finished ? 'Ready now' : timer.label}
+          color={colors.ink}
+          style={styles.timerLabel}
+        />
         <CloseButton onPress={onRemove} accessibilityLabel="Remove timer" />
       </View>
       <View style={{height: dimensions.timerClockSpacing}} />
@@ -198,5 +202,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  timerLabel: {
+    flex: 1,
   },
 });

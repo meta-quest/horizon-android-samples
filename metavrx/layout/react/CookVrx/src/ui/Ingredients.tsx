@@ -89,7 +89,8 @@ export function IngredientsPanel({
                         color={colors.citrus}
                       />
                       <View style={{width: dimensions.ingredientTipRuleSpacing}} />
-                      <Text style={[text.note, {color: colors.mutedInk}]}>
+                      <Text
+                        style={[text.note, styles.tipText, {color: colors.mutedInk}]}>
                         {ingredient.tip}
                       </Text>
                     </View>
@@ -134,5 +135,8 @@ const styles = StyleSheet.create({
   tipRow: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  tipText: {
+    flex: 1,
   },
 });

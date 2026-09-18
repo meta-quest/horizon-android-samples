@@ -16,10 +16,9 @@ immersive-app framework is needed.
 - `com.meta.metavrx.layout:layout-compose-compat`
 - `com.meta.metavrx.layout:layout-window-compose-compat`
 
-The exported sample imports `com.meta.metavrx:metavrx-bom` and declares all
-three MetaVRX artifacts without versions. In-tree builds temporarily force the
-locally snapshotted Layout candidate; gruck removes that block from exports so
-the published sample follows the validated BOM set.
+The sample imports `com.meta.metavrx:metavrx-bom` and declares all three
+MetaVRX artifacts without versions. Public builds therefore follow the exact
+SDK versions selected by the BOM.
 
 ## What it highlights
 The sample is a tour of the Layout SDK's window composition and placement model. It declares

@@ -14,21 +14,15 @@ local.properties
 # Kotlin
 .kotlin/
 
-# React Native / Node (a partner's `yarn install` populates these)
+# React Native / Node
 node_modules/
 
-# npm registry pointer. Building inside Meta needs one (public npm is blocked --
-# see README.md), but it names an internal host, so it must never ship to a
-# partner. Keep it local, or set the registry globally in ~/.npmrc instead.
+# Local npm registry configuration
 .npmrc
 
 # Bundle embedded by `react-native bundle` for an untethered (no Metro) install.
 # A stale embedded bundle silently shadows Metro.
 android/app/src/main/assets/index.android.bundle
-
-# Local Maven repository, if one is ever created or symlinked here.
-.gruck/
-.gruck
 
 # IDE
 .idea/

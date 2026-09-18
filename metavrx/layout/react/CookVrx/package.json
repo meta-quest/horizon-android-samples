@@ -7,8 +7,8 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "@metavr/layout-compat": "^1.0.1",
-    "@metavr/layout-window-compat": "^1.0.1",
+    "@metavr/layout-compat": "^1.0.0",
+    "@metavr/layout-window-compat": "^1.0.0",
     "react": "19.2.3",
     "react-native": "0.85.0"
   },

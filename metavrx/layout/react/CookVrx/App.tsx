@@ -152,7 +152,7 @@ function IngredientsWindow({
     <SpatialWindow
       label="ingredients"
       windowWidth={dimensions.cookToolWindowWidth}
-      windowHeight={dimensions.cookToolWindowHeight}
+      windowHeight="100%"
       anchor="start"
       offset={{start: OffsetNear, z: OffsetNear}}>
       <IngredientsPanel
@@ -176,7 +176,7 @@ function TimersWindow({store}: {store: CookVrxStore}): React.JSX.Element {
     <SpatialWindow
       label="timers"
       windowWidth={dimensions.cookToolWindowWidth}
-      windowHeight={dimensions.cookToolWindowHeight}
+      windowHeight="100%"
       anchor="end"
       offset={{start: OffsetNearTowardEnd, z: OffsetNear}}>
       <TimersPanel

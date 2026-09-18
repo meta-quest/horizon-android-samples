@@ -25,8 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.example.metavrx.layout.cookvrx.data.Recipe
+import metavrx.uiset.compose.Icon
 import metavrx.uiset.compose.button.ButtonStyle
+import metavrx.uiset.compose.button.IconButton
 import metavrx.uiset.compose.button.LabelButton
+import metavrx.uiset.compose.theme.icons.Icons
 
 @Composable
 fun CookStep(
@@ -58,14 +61,30 @@ fun CookStep(
             style = CookVrxTheme.recipeTitle.copy(color = colors.cream),
         )
       }
-      Box(
-          modifier =
-              Modifier.background(colors.tomato, CircleShape).padding(dimensions.stepBadgePadding),
-          contentAlignment = Alignment.Center,
+      Row(
+          horizontalArrangement = Arrangement.spacedBy(dimensions.stepControlSpacing),
+          verticalAlignment = Alignment.CenterVertically,
       ) {
-        Eyebrow(
-            text = if (isComplete) "Done" else "${stepIndex + 1}/${recipe.steps.size}",
-            color = colors.cream,
+        Box(
+            modifier =
+                Modifier.background(colors.tomato, CircleShape)
+                    .padding(dimensions.stepBadgePadding),
+            contentAlignment = Alignment.Center,
+        ) {
+          Eyebrow(
+              text = if (isComplete) "Done" else "${stepIndex + 1}/${recipe.steps.size}",
+              color = colors.cream,
+          )
+        }
+        IconButton(
+            icon = { Icon(imageVector = Icons.Regular.Close, contentDescription = null) },
+            onClick = onReturnToLibrary,
+            contentDescription = "Exit cooking",
+            style =
+                ButtonStyle.Bordered.copy(
+                    contentColor = colors.cream,
+                    borderColor = colors.cream,
+                ),
         )
       }
     }
