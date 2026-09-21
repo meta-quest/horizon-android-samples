@@ -95,7 +95,7 @@ fun ControlsScreen() {
         }
         Labelled("Disabled") {
           RadioButton(
-              selected = false,
+              selected = true,
               onClick = {},
               contentDescription = null,
               enabled = false,

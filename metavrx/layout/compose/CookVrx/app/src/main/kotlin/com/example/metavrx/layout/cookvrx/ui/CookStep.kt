@@ -18,9 +18,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -47,14 +50,13 @@ fun CookStep(
   Column(
       modifier =
           modifier.fillMaxSize().background(colors.ink).padding(dimensions.stepContentPadding),
-      verticalArrangement = Arrangement.SpaceBetween,
   ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-      Column {
+      Column(modifier = Modifier.weight(1f).padding(end = dimensions.stepControlSpacing)) {
         Eyebrow("Now cooking", color = colors.citrus)
         BasicText(
             text = recipe.title,
@@ -89,47 +91,54 @@ fun CookStep(
       }
     }
 
-    if (isComplete) {
-      CompleteState(recipe = recipe)
-    } else {
-      val step = recipe.steps[stepIndex]
-      Column(modifier = Modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          BasicText(
-              text = (stepIndex + 1).toString().padStart(2, '0'),
-              style =
-                  CookVrxTheme.display.copy(
-                      color = colors.tomato,
-                      fontSize = dimensions.stepNumberFontSize,
-                      lineHeight = dimensions.stepNumberLineHeight,
-                  ),
-          )
-          Spacer(modifier = Modifier.width(dimensions.stepNumberSpacing))
-          Box(
-              modifier =
-                  Modifier.weight(1f)
-                      .height(dimensions.stepRuleHeight)
-                      .background(colors.cream.copy(alpha = 0.25f)),
-          )
-        }
-        Spacer(modifier = Modifier.height(dimensions.stepInstructionSpacing))
-        BasicText(
-            text = step.text,
-            style =
-                CookVrxTheme.title.copy(
-                    color = colors.cream,
-                    fontSize = dimensions.stepInstructionFontSize,
-                    lineHeight = dimensions.stepInstructionLineHeight,
-                ),
-        )
-        if (step.timerSeconds > 0) {
-          Spacer(modifier = Modifier.height(dimensions.stepTimerSpacing))
-          LabelButton(
-              label = "START ${formatClock(step.timerSeconds)} TIMER",
-              onClick = onStartTimer,
-              style = ButtonStyle.Secondary,
-              labelTextStyle = CookVrxTheme.label,
-          )
+    key(stepIndex, isComplete) {
+      Column(
+          modifier = Modifier.fillMaxWidth().weight(1f).verticalScroll(rememberScrollState()),
+          verticalArrangement = Arrangement.Center,
+      ) {
+        if (isComplete) {
+          CompleteState(recipe = recipe)
+        } else {
+          val step = recipe.steps[stepIndex]
+          Column(modifier = Modifier.fillMaxWidth()) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+              BasicText(
+                  text = (stepIndex + 1).toString().padStart(2, '0'),
+                  style =
+                      CookVrxTheme.display.copy(
+                          color = colors.tomato,
+                          fontSize = dimensions.stepNumberFontSize,
+                          lineHeight = dimensions.stepNumberLineHeight,
+                      ),
+              )
+              Spacer(modifier = Modifier.width(dimensions.stepNumberSpacing))
+              Box(
+                  modifier =
+                      Modifier.weight(1f)
+                          .height(dimensions.stepRuleHeight)
+                          .background(colors.cream.copy(alpha = 0.25f)),
+              )
+            }
+            Spacer(modifier = Modifier.height(dimensions.stepInstructionSpacing))
+            BasicText(
+                text = step.text,
+                style =
+                    CookVrxTheme.title.copy(
+                        color = colors.cream,
+                        fontSize = dimensions.stepInstructionFontSize,
+                        lineHeight = dimensions.stepInstructionLineHeight,
+                    ),
+            )
+            if (step.timerSeconds > 0) {
+              Spacer(modifier = Modifier.height(dimensions.stepTimerSpacing))
+              LabelButton(
+                  label = "START ${formatClock(step.timerSeconds)} TIMER",
+                  onClick = onStartTimer,
+                  style = ButtonStyle.Secondary,
+                  labelTextStyle = CookVrxTheme.label,
+              )
+            }
+          }
         }
       }
     }
