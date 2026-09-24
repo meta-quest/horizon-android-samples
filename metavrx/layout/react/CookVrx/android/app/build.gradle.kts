@@ -52,6 +52,7 @@ android {
       // Default debug build — Metro bundler attaches at runtime.
     }
     release {
+      signingConfig = signingConfigs.getByName("debug")
       isMinifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
