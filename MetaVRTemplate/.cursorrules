@@ -110,6 +110,36 @@ This template uses Meta's UI Set design system:
   should advance independently of the minimum.
 - These values are separate from Android's `minSdk` and `targetSdk`.
 
+## Look and Pinch
+
+Look and pinch is the **default input method on devices that ship without controllers**, so these
+are requirements, not preferences. Two OS facts drive all of them:
+
+- **The app receives no hover events.** Raw eye-tracking data is never exposed to panel
+  applications, so hover is not delivered. Pointer events behave like touch, and anything that
+  depends on hover state will not work.
+- **The app never receives the user's gaze.** The *system* draws the hover and selection
+  affordance from its own "UI Understanding" of the panel. An element the system does not
+  recognise as interactive gets no affordance, even if it responds to a pinch, so the user cannot
+  tell it is targetable.
+
+Rules for this template:
+
+| Rule | How it is done here |
+|---|---|
+| Interactive targets are at least 48dp, 60dp recommended | `LookAndPinchMinTargetHeight` is applied to every side-nav item |
+| Make interactivity visible to the system | Use `Modifier.clickable`, or a component that takes an `onClick`. Do not draw a bare `Canvas` and handle raw pointer input |
+| Never put a click listener on static content | A stray `Modifier.clickable` makes the system draw a highlight on something the user cannot act on |
+| Group cards as one target | Put the click listener on the parent container, never on the children, or each child highlights separately |
+| Declare the shape before the click | Put `Modifier.clip(shape)` before `clickable`, or give both the same shape — otherwise the system highlights the rectangular bounds |
+| Do not style `state_hovered` | Look and pinch never delivers hover events. Style the pressed and selected states instead |
+
+Requires **Jetpack Compose 1.10.0 or newer** for the system to infer a composable's real shape; on
+older versions it falls back to rectangular bounds. This template resolves Compose 1.11.0.
+
+Native tooltips never appear under look and pinch. A tooltip carrying real meaning has to move to
+the Gaze SDK, which is not a dependency of this template.
+
 ## Platform Constraints
 
 These Android features are NOT available on the OS:
