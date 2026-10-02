@@ -14,7 +14,7 @@ MetaVRTemplate/
         drawable/ic_meta_logo.xml # Meta logo vector drawable
       AndroidManifest.xml         # App manifest with panel layout
     build.gradle.kts              # App module: dependencies, SDK config
-  gradle/libs.versions.toml       # Version catalog (UI Set, Compose, etc.)
+  gradle/libs.versions.toml       # Version catalog (Meta VR UI Set SDK, Compose, etc.)
   build.gradle.kts                # Root build file
   settings.gradle.kts             # Repository and module config
 ```
@@ -36,10 +36,10 @@ Single-activity Compose app. `MainActivity` extends `ComponentActivity` — all 
 
 ```
 MainActivity (ComponentActivity)
-  └─ SpatialTheme + CompositionLocalProvider (theme + text color)
+  └─ UiSetTheme(darkColorScheme())
       └─ MetaVRApp()
           ├─ LazyColumn (side nav, 160dp wide)
-          │   └─ SpatialSideNavItem × 3 (Home, Features, Tools)
+          │   └─ SideNavItem × 3 (Home, Features, Tools)
           └─ AnimatedContent (tab content area)
               ├─ HomeContent()
               ├─ FeaturesContent()
@@ -61,27 +61,28 @@ MainActivity (ComponentActivity)
 
 | Dependency | Purpose |
 |---|---|
-| `com.meta.spatial:meta-spatial-sdk-uiset` | UI Set theme, components (SpatialTheme, SecondaryCard, SpatialSideNavItem) |
+| `com.meta.metavrx:metavrx-bom` | Selects the validated Meta VR UI Set SDK version |
+| `com.meta.metavrx.uiset:uiset-compose-compat` | Meta VR UI Set SDK theme, components and icons (UiSetTheme, SecondaryCard, SideNavItem, Icons.Regular) |
 | `androidx.activity:activity-compose` | Compose integration with ComponentActivity |
 | `androidx.compose.*` | Jetpack Compose UI framework |
-| `androidx.compose.material3` | Material 3 icons and components |
 
-Versions are managed in `gradle/libs.versions.toml`. The UI Set version is controlled by the `spatialsdk` version variable.
+Versions are managed in `gradle/libs.versions.toml`. The UI Set is declared without a version; the `metavrxBom` version selects it.
 
-## UI Set Theming
+## Meta VR UI Set SDK Theming
 
-This template uses Meta's UI Set design system:
+This template uses the Meta VR UI Set SDK (package `metavrx.uiset.compose`):
 
-- `SpatialTheme { }` — wraps the app in UI Set theming
-- `LocalColorScheme.current.primaryAlphaBackground` — light text for dark backgrounds
-- `LocalColorScheme.current.secondaryAlphaBackground` — dimmer secondary text
-- `LocalColorScheme.current.panel` — gradient brush for dark panel backgrounds
+- `UiSetTheme(colorScheme = darkColorScheme()) { }` — wraps the app in UI Set theming
+- `UiSetTheme.colorScheme.background.container.brush` — gradient brush for the panel background
+- `UiSetTheme.colorScheme.background.content.primary` / `.secondary` — text on the panel background
+- `LocalContentColors.current.primary` / `.secondary` — text inside a card, which provides its own content colors
+- `UiSetTheme.typography.*` (`headline`, `title`, `body`, ...) and `UiSetTheme.shapes.*`
 
 ### Pitfalls
 
-- **Always set panel background.** Without `.background(brush = LocalColorScheme.current.panel)`, UI Set components render light text on white/transparent.
-- **Always propagate text color.** Use `CompositionLocalProvider(LocalContentColor provides ...)` at the top level.
-- **SpatialSideNavItem defaults.** Don't set `collapsed = true` and `dense = true` together — items become invisible.
+- **Paint the panel background.** Apply `UiSetTheme.colorScheme.background.container.brush` to the root layout.
+- **Use the UI Set `Text` and `Icon`** from `metavrx.uiset.compose`, not the Material 3 ones, and pass the content color of the surface they sit on.
+- **Icons are composable getters.** `Icons.Regular.*` can only be read during composition, not in a top-level `val` or an enum constructor.
 
 ## Manifest Configuration
 
@@ -152,7 +153,7 @@ Use Android-native alternatives where available (e.g., `LocationManager` instead
 
 ## Adding a New Tab
 
-1. Add a new `SpatialSideNavItem` in the `LazyColumn` with the next index
+1. Add a new `SideNavItem` in the `LazyColumn` with the next index
 2. Add a new composable function (e.g., `SettingsContent()`)
 3. Add a `when` branch in the `AnimatedContent` block
 4. Use `ScrollableTabContent { }` as the wrapper for scrollable content with gradient fade

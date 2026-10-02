@@ -1,7 +1,7 @@
 # Meta VR Template
 
 A minimal 2D Android application template for mixed reality. It uses standard
-Android and Jetpack Compose with Meta UI Set styling.
+Android and Jetpack Compose with Meta VR UI Set SDK styling.
 
 ## Getting Started
 
@@ -12,8 +12,9 @@ Android and Jetpack Compose with Meta UI Set styling.
 ## What the template configures
 
 This is a Standard Android app: `MainActivity` extends `ComponentActivity`, and
-the UI is ordinary Jetpack Compose. The UI Set dependency supplies themed
-components; it does not change the application model or the build path.
+the UI is ordinary Jetpack Compose. The Meta VR UI Set SDK supplies themed
+components; it does not change the application model or the build path. Its
+version comes from the `com.meta.metavrx:metavrx-bom` platform.
 
 The manifest contains OS configuration that is independent of the
 Android SDK levels in `app/build.gradle.kts`:
@@ -30,9 +31,9 @@ Android SDK levels in `app/build.gradle.kts`:
 - The activity's `<layout>` sets the initial 2D panel size. Users can resize the
   panel, so layouts must remain responsive.
 
-In `MainActivity.kt`, the UI Set theme supplies colors, shapes, and typography.
-The template also applies the panel background and inherited text color
-explicitly, because UI Set components assume a dark panel surface.
+In `MainActivity.kt`, `UiSetTheme` supplies colors, shapes, typography, and
+icons. The template applies the panel background explicitly and uses the dark
+color scheme.
 
 ## Project Structure
 
@@ -43,6 +44,7 @@ explicitly, because UI Set components assume a dark panel surface.
 ## Documentation
 
 - [Android app documentation](https://developers.meta.com/horizon/develop/android-apps/)
+- [Meta VR UI Set SDK](https://developers.meta.com/vr/documentation/android-apps/meta-vr-ui-set-sdk/)
 
 ## Troubleshooting
 

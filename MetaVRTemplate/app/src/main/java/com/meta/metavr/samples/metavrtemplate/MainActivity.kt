@@ -33,42 +33,27 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.meta.spatial.uiset.card.SecondaryCard
-import com.meta.spatial.uiset.navigation.SpatialSideNavItem
-import com.meta.spatial.uiset.theme.LocalColorScheme
-import com.meta.spatial.uiset.theme.SpatialTheme
-
-private val AccentBlue = Color(0xFF47A5FA)
-private val PanelBottom = Color(0xFF272727)
+import metavrx.uiset.compose.Icon
+import metavrx.uiset.compose.Text
+import metavrx.uiset.compose.card.SecondaryCard
+import metavrx.uiset.compose.navigation.SideNavItem
+import metavrx.uiset.compose.theme.LocalContentColors
+import metavrx.uiset.compose.theme.UiSetTheme
+import metavrx.uiset.compose.theme.darkColorScheme
+import metavrx.uiset.compose.theme.icons.Icons
 
 // Look and pinch is the default input method on devices that ship without controllers, and it is
 // less precise than a controller ray. Interactive targets must be at least 48dp; 60dp is the
@@ -80,15 +65,8 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-      // UI Set provides panel colors, shapes, and typography on top of Compose.
-      SpatialTheme {
-        // UI Set's dark panel palette expects descendants to inherit a light content color.
-        CompositionLocalProvider(
-            LocalContentColor provides LocalColorScheme.current.primaryAlphaBackground,
-        ) {
-          MetaVRApp()
-        }
-      }
+      // The Meta VR UI Set provides panel colors, shapes, and typography on top of Compose.
+      UiSetTheme(colorScheme = darkColorScheme()) { MetaVRApp() }
     }
   }
 }
@@ -102,8 +80,7 @@ fun MetaVRApp() {
   Row(
       modifier =
           Modifier.fillMaxSize()
-              .clip(SpatialTheme.shapes.large)
-              .background(brush = LocalColorScheme.current.panel)
+              .background(UiSetTheme.colorScheme.background.container.brush)
               .padding(24.dp),
       horizontalArrangement = Arrangement.spacedBy(24.dp),
   ) {
@@ -113,27 +90,27 @@ fun MetaVRApp() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
       item {
-        SpatialSideNavItem(
+        SideNavItem(
             modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+            icon = { Icon(Icons.Regular.Home, contentDescription = "Home") },
             onClick = { selectedTab = 0 },
             primaryLabel = "Home",
             selected = selectedTab == 0,
         )
       }
       item {
-        SpatialSideNavItem(
+        SideNavItem(
             modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
-            icon = { Icon(Icons.Default.Star, contentDescription = "Features") },
+            icon = { Icon(Icons.Regular.Star, contentDescription = "Features") },
             onClick = { selectedTab = 1 },
             primaryLabel = "Features",
             selected = selectedTab == 1,
         )
       }
       item {
-        SpatialSideNavItem(
+        SideNavItem(
             modifier = Modifier.heightIn(min = LookAndPinchMinTargetHeight),
-            icon = { Icon(Icons.Default.Build, contentDescription = "Tools") },
+            icon = { Icon(Icons.Regular.Settings, contentDescription = "Tools") },
             onClick = { selectedTab = 2 },
             primaryLabel = "Tools",
             selected = selectedTab == 2,
@@ -168,6 +145,8 @@ fun ScrollableTabContent(content: @Composable () -> Unit) {
     ) {
       content()
     }
+    // Fades into the last stop of the panel gradient, so it follows the color scheme.
+    val panelBottom = UiSetTheme.colorScheme.background.container.colors.asList().last()
     Box(
         modifier =
             Modifier.align(Alignment.BottomCenter)
@@ -175,7 +154,7 @@ fun ScrollableTabContent(content: @Composable () -> Unit) {
                 .height(48.dp)
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, PanelBottom),
+                        colors = listOf(Color.Transparent, panelBottom),
                     ),
                 ),
     )
@@ -190,20 +169,20 @@ fun InfoCard(icon: ImageVector, title: String, description: String) {
           imageVector = icon,
           contentDescription = null,
           modifier = Modifier.size(20.dp),
-          tint = AccentBlue,
+          tint = UiSetTheme.colorScheme.accent.container.colors.asList().first(),
       )
       Spacer(modifier = Modifier.width(12.dp))
       Text(
           text = title,
-          style = SpatialTheme.typography.headline3,
-          fontWeight = FontWeight.Bold,
+          style = UiSetTheme.typography.title,
+          color = LocalContentColors.current.primary,
       )
     }
     Spacer(modifier = Modifier.height(8.dp))
     Text(
         text = description,
-        style = SpatialTheme.typography.body1,
-        color = LocalColorScheme.current.secondaryAlphaBackground,
+        style = UiSetTheme.typography.body,
+        color = LocalContentColors.current.secondary,
     )
   }
 }
@@ -223,15 +202,15 @@ fun HomeContent() {
       Spacer(modifier = Modifier.height(8.dp))
       Text(
           text = "Build for mixed reality",
-          style = SpatialTheme.typography.headline1,
-          fontWeight = FontWeight.Bold,
+          style = UiSetTheme.typography.headline,
+          color = UiSetTheme.colorScheme.background.content.primary,
           textAlign = TextAlign.Center,
       )
       Spacer(modifier = Modifier.height(4.dp))
       Text(
           text = "Build apps and experiences for mixed reality",
-          style = SpatialTheme.typography.body1,
-          color = LocalColorScheme.current.secondaryAlphaBackground,
+          style = UiSetTheme.typography.body,
+          color = UiSetTheme.colorScheme.background.content.secondary,
           textAlign = TextAlign.Center,
       )
     }
@@ -241,10 +220,11 @@ fun HomeContent() {
             "The OS is Android-based and designed for mixed reality. " +
                 "Build 2D panel apps using standard Android APIs " +
                 "and Jetpack Compose.",
-        style = SpatialTheme.typography.body1,
+        style = UiSetTheme.typography.body,
+        color = UiSetTheme.colorScheme.background.content.primary,
     )
     InfoCard(
-        icon = Icons.Default.PlayArrow,
+        icon = Icons.Regular.Play,
         title = "Getting started",
         description =
             "This template gives you a minimal Android project configured for " +
@@ -260,16 +240,16 @@ fun FeaturesContent() {
   ScrollableTabContent {
     Text(
         text = "Features",
-        style = SpatialTheme.typography.headline1,
-        fontWeight = FontWeight.Bold,
+        style = UiSetTheme.typography.headline,
+        color = UiSetTheme.colorScheme.background.content.primary,
     )
     Text(
         text = "What makes developing for mixed reality unique",
-        style = SpatialTheme.typography.body1,
-        color = LocalColorScheme.current.secondaryAlphaBackground,
+        style = UiSetTheme.typography.body,
+        color = UiSetTheme.colorScheme.background.content.secondary,
     )
     InfoCard(
-        icon = Icons.Default.Info,
+        icon = Icons.Regular.Info,
         title = "Spatial panels",
         description =
             "Apps run as spatial panels that float in the user's environment. " +
@@ -277,7 +257,7 @@ fun FeaturesContent() {
                 "screen real estate than any phone or tablet.",
     )
     InfoCard(
-        icon = Icons.Default.Create,
+        icon = Icons.Regular.HandCursor,
         title = "Hand tracking and controllers",
         description =
             "The OS supports both hand tracking and controllers. Standard " +
@@ -285,7 +265,7 @@ fun FeaturesContent() {
                 "panel apps.",
     )
     InfoCard(
-        icon = Icons.Default.Place,
+        icon = Icons.Regular.Environment,
         title = "Mixed reality and passthrough",
         description =
             "Build experiences that blend digital content with the real world. " +
@@ -293,7 +273,7 @@ fun FeaturesContent() {
                 "while interacting with your app.",
     )
     InfoCard(
-        icon = Icons.Default.Notifications,
+        icon = Icons.Regular.VolumeOn,
         title = "Spatial audio",
         description =
             "Place sounds in 3D space so audio feels like it comes from a " +
@@ -308,23 +288,23 @@ fun ToolsContent() {
   ScrollableTabContent {
     Text(
         text = "Developer tools",
-        style = SpatialTheme.typography.headline1,
-        fontWeight = FontWeight.Bold,
+        style = UiSetTheme.typography.headline,
+        color = UiSetTheme.colorScheme.background.content.primary,
     )
     Text(
         text = "Tools to help you build, test, and debug your apps.",
-        style = SpatialTheme.typography.body1,
-        color = LocalColorScheme.current.secondaryAlphaBackground,
+        style = UiSetTheme.typography.body,
+        color = UiSetTheme.colorScheme.background.content.secondary,
     )
     InfoCard(
-        icon = Icons.Default.Build,
+        icon = Icons.Regular.Computer,
         title = "Meta VR Android Studio Plugin",
         description =
             "Create projects from templates and access troubleshooting tools " +
                 "directly in Android Studio.",
     )
     InfoCard(
-        icon = Icons.Default.PlayArrow,
+        icon = Icons.Regular.Play,
         title = "Meta Spatial Simulator",
         description =
             "Test your app in a simulated device environment on your " +
@@ -332,7 +312,7 @@ fun ToolsContent() {
                 "and room setup.",
     )
     InfoCard(
-        icon = Icons.Default.Settings,
+        icon = Icons.Regular.Settings,
         title = "Meta Quest Developer Hub",
         description =
             "Manage your device, capture logs, take screenshots, and monitor " +

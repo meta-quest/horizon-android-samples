@@ -13,35 +13,33 @@ Project wizard. Single-activity Compose: all UI lives in
 ./gradlew installDebug     # Install and run on connected device/simulator
 ```
 
-Dependencies are declared in `gradle/libs.versions.toml`. The UI Set
-(`com.meta.spatial:meta-spatial-sdk-uiset`) supplies the theme and components below, and its
-version follows the `spatialsdk` variable.
+Dependencies are declared in `gradle/libs.versions.toml`. The Meta VR UI Set SDK
+(`com.meta.metavrx.uiset:uiset-compose-compat`) supplies the theme, components and icons below.
+It is declared without a version: the `com.meta.metavrx:metavrx-bom` platform, set by the
+`metavrxBom` variable, selects it.
 
-## UI Set Theming
+## Meta VR UI Set SDK Theming
 
-This template uses Meta's UI Set design system. Key patterns:
+This template uses the Meta VR UI Set SDK, package `metavrx.uiset.compose`. Key patterns:
 
 ### Dark Theme Setup
 ```kotlin
-SpatialTheme {
-  CompositionLocalProvider(
-    LocalContentColor provides LocalColorScheme.current.primaryAlphaBackground,
-  ) {
-    // App content here
-  }
+UiSetTheme(colorScheme = darkColorScheme()) {
+  // App content here
 }
 ```
-- `LocalColorScheme.current.primaryAlphaBackground` — light text on dark backgrounds (0xFFF1F4F7); `secondaryAlphaBackground` is the dimmer 60% white
-- `LocalColorScheme.current.panel` — gradient brush for dark panel backgrounds (0xFF414141 → 0xFF272727)
+- `UiSetTheme.colorScheme.background.container.brush` — gradient brush for the panel background
+- `UiSetTheme.colorScheme.background.content.primary` / `.secondary` — text on the panel background
+- `LocalContentColors.current.primary` / `.secondary` — text inside a card, which provides its own content colors
 
 ### Components
-`SpatialSideNavItem` (icon, label, selected state), `SecondaryCard` (rounded content card), plus
-`SpatialTheme.typography.*` and `SpatialTheme.shapes.*`.
+`SideNavItem` (icon, label, selected state), `SecondaryCard` (rounded content card), `Text`,
+`Icon` and `Icons.Regular.*`, plus `UiSetTheme.typography.*` and `UiSetTheme.shapes.*`.
 
 ### Pitfalls
-- **Always set panel background.** Without `.background(brush = LocalColorScheme.current.panel)`, UI Set components render light text on a white/transparent background.
-- **Always propagate text color.** Use `CompositionLocalProvider(LocalContentColor provides ...)` at the top level so child components inherit readable text colors.
-- **SpatialSideNavItem defaults.** Don't set `collapsed = true` and `dense = true` together — the items render as tiny invisible squares. Use default expanded mode.
+- **Paint the panel background.** Apply `UiSetTheme.colorScheme.background.container.brush` to the root layout.
+- **Use the UI Set `Text` and `Icon`** from `metavrx.uiset.compose`, not the Material 3 ones, and pass the content color of the surface they sit on.
+- **Icons are composable getters.** `Icons.Regular.*` can only be read during composition, not in a top-level `val` or an enum constructor.
 
 ## Manifest Configuration
 

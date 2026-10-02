@@ -14,10 +14,10 @@ Single-activity Compose app. `MainActivity` is the only activity — all UI is b
 
 ```
 MainActivity (ComponentActivity)
-  └─ SpatialTheme + CompositionLocalProvider (theme + text color)
+  └─ UiSetTheme(darkColorScheme())
       └─ MetaVRApp()
           ├─ LazyColumn (side nav, 160dp wide)
-          │   └─ SpatialSideNavItem × 3 (Home, Features, Tools)
+          │   └─ SideNavItem × 3 (Home, Features, Tools)
           └─ AnimatedContent (tab content area)
               ├─ HomeContent()
               ├─ FeaturesContent()
@@ -28,7 +28,7 @@ Tab switching uses `AnimatedContent` with `fadeIn() togetherWith fadeOut()` tran
 
 ## Adding a New Tab
 
-1. Add a new `SpatialSideNavItem` in the `LazyColumn` with the next index
+1. Add a new `SideNavItem` in the `LazyColumn` with the next index
 2. Add a new composable function (e.g., `SettingsContent()`)
 3. Add a `when` branch in the `AnimatedContent` block
 4. Use `ScrollableTabContent { }` as the wrapper for scrollable content with gradient fade
@@ -44,14 +44,12 @@ Tab switching uses `AnimatedContent` with `fadeIn() togetherWith fadeOut()` tran
 | `FeaturesContent()` | Platform features overview |
 | `ToolsContent()` | Developer tools overview |
 
-## Color Constants
+## Colors
 
-```kotlin
-val AccentBlue = Color(0xFF47A5FA)   // Icon tint color
-val PanelBottom = Color(0xFF272727)  // Bottom of panel gradient (for fade overlay)
-```
-
-These match the UI Set dark theme palette. If you change the theme, update `PanelBottom` to match the bottom color of `LocalColorScheme.current.panel`.
+There are no hard-coded colors. Card icons are tinted with the first stop of
+`UiSetTheme.colorScheme.accent.container`, and the scroll fade ends on the last stop of
+`UiSetTheme.colorScheme.background.container`, so both follow the color scheme passed to
+`UiSetTheme`.
 
 ## Common Modifications
 
