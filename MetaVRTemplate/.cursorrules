@@ -1,6 +1,6 @@
-# Horizon OS Template
+# Meta VR Template
 
-A starter Android project for building 2D panel apps on Meta Quest (Horizon OS).
+A starter Android project for building 2D panel apps for mixed reality.
 
 ## Project Structure
 
@@ -12,9 +12,9 @@ MetaVRTemplate/
         MainActivity.kt          # Single-activity Compose app (all UI in one file)
       res/
         drawable/ic_meta_logo.xml # Meta logo vector drawable
-      AndroidManifest.xml         # Horizon OS manifest with panel layout
+      AndroidManifest.xml         # App manifest with panel layout
     build.gradle.kts              # App module: dependencies, SDK config
-  gradle/libs.versions.toml       # Version catalog (Spatial SDK, Compose, etc.)
+  gradle/libs.versions.toml       # Version catalog (UI Set, Compose, etc.)
   build.gradle.kts                # Root build file
   settings.gradle.kts             # Repository and module config
 ```
@@ -61,32 +61,37 @@ MainActivity (ComponentActivity)
 
 | Dependency | Purpose |
 |---|---|
-| `com.meta.spatial:meta-spatial-sdk-uiset` | UISet theme, components (SpatialTheme, SecondaryCard, SpatialSideNavItem) |
+| `com.meta.spatial:meta-spatial-sdk-uiset` | UI Set theme, components (SpatialTheme, SecondaryCard, SpatialSideNavItem) |
 | `androidx.activity:activity-compose` | Compose integration with ComponentActivity |
 | `androidx.compose.*` | Jetpack Compose UI framework |
 | `androidx.compose.material3` | Material 3 icons and components |
 
-Versions are managed in `gradle/libs.versions.toml`. The Spatial SDK version is controlled by the `spatialsdk` version variable.
+Versions are managed in `gradle/libs.versions.toml`. The UI Set version is controlled by the `spatialsdk` version variable.
 
-## UISet Theming
+## UI Set Theming
 
-This template uses Meta's UISet design system:
+This template uses Meta's UI Set design system:
 
-- `SpatialTheme { }` — wraps the app in UISet theming
+- `SpatialTheme { }` — wraps the app in UI Set theming
 - `LocalColorScheme.current.primaryAlphaBackground` — light text for dark backgrounds
 - `LocalColorScheme.current.secondaryAlphaBackground` — dimmer secondary text
 - `LocalColorScheme.current.panel` — gradient brush for dark panel backgrounds
 
 ### Pitfalls
 
-- **Always set panel background.** Without `.background(brush = LocalColorScheme.current.panel)`, UISet components render light text on white/transparent.
+- **Always set panel background.** Without `.background(brush = LocalColorScheme.current.panel)`, UI Set components render light text on white/transparent.
 - **Always propagate text color.** Use `CompositionLocalProvider(LocalContentColor provides ...)` at the top level.
 - **SpatialSideNavItem defaults.** Don't set `collapsed = true` and `dense = true` together — items become invisible.
 
-## Horizon OS Manifest
+## Manifest Configuration
 
 ```xml
-<!-- Required: Horizon OS SDK version targeting -->
+<!-- Required: Meta VR SDK version targeting -->
+<metavr:uses-metavr-sdk
+  metavr:minSdkVersion="69"
+  metavr:targetSdkVersion="207" />
+
+<!-- Legacy form, still accepted; declared alongside the current one -->
 <horizonos:uses-horizonos-sdk
   horizonos:minSdkVersion="69"
   horizonos:targetSdkVersion="207" />
@@ -100,14 +105,14 @@ This template uses Meta's UISet design system:
 <layout android:defaultHeight="640dp" android:defaultWidth="1024dp" />
 ```
 
-- `horizonos:minSdkVersion` is the oldest installable Horizon OS release.
-- `horizonos:targetSdkVersion` opts into behavior through that Horizon OS
-  release and should advance independently of the minimum.
+- `metavr:minSdkVersion` is the oldest installable OS release.
+- `metavr:targetSdkVersion` opts into behavior through that OS release and
+  should advance independently of the minimum.
 - These values are separate from Android's `minSdk` and `targetSdk`.
 
-## Platform Constraints (Horizon OS)
+## Platform Constraints
 
-These Android features are NOT available on Horizon OS:
+These Android features are NOT available on the OS:
 - Google Mobile Services (GMS) — Auth, Location, Ads, Billing
 - Android Notification API
 - Camera access
@@ -128,13 +133,3 @@ Use Android-native alternatives where available (e.g., `LocationManager` instead
 - **Add a dependency:** Add to `gradle/libs.versions.toml` under `[libraries]`, reference in `app/build.gradle.kts`
 - **Change app name:** Update `app_name` in `app/src/main/res/values/strings.xml`
 - **Change app package:** Update `namespace`/`applicationId` in `app/build.gradle.kts`, `android:name` in manifest, and Kotlin package declaration
-
-## Going Immersive (Spatial SDK)
-
-To convert to a fully immersive 3D experience:
-
-1. Add Spatial SDK dependencies to `app/build.gradle.kts`
-2. Change `MainActivity` to extend `AppSystemActivity` instead of `ComponentActivity`
-3. Add spatial scene configuration and ECS components
-
-See [Meta Spatial SDK documentation](https://developers.meta.com/horizon/develop/spatial-sdk/) for details.

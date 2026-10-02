@@ -40,7 +40,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -75,7 +74,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-      // UISet provides Horizon OS panel colors, shapes, and typography on top of Compose.
+      // UI Set provides panel colors, shapes, and typography on top of Compose.
       SpatialTheme {
         // UI Set's dark panel palette expects descendants to inherit a light content color.
         CompositionLocalProvider(
@@ -92,7 +91,7 @@ class MainActivity : ComponentActivity() {
 fun MetaVRApp() {
   var selectedTab by remember { mutableIntStateOf(0) }
 
-  // Horizon OS presents the activity as a resizable panel, so paint the UISet panel
+  // The OS presents the activity as a resizable panel, so paint the UI Set panel
   // background explicitly and keep the content responsive to the available bounds.
   Row(
       modifier =
@@ -214,14 +213,14 @@ fun HomeContent() {
       )
       Spacer(modifier = Modifier.height(8.dp))
       Text(
-          text = "Build for Meta Horizon OS",
+          text = "Build for mixed reality",
           style = SpatialTheme.typography.headline1,
           fontWeight = FontWeight.Bold,
           textAlign = TextAlign.Center,
       )
       Spacer(modifier = Modifier.height(4.dp))
       Text(
-          text = "Build apps and experiences for Meta Horizon OS",
+          text = "Build apps and experiences for mixed reality",
           style = SpatialTheme.typography.body1,
           color = LocalColorScheme.current.secondaryAlphaBackground,
           textAlign = TextAlign.Center,
@@ -230,10 +229,9 @@ fun HomeContent() {
     Spacer(modifier = Modifier.height(4.dp))
     Text(
         text =
-            "Meta Horizon OS is an Android-based operating system designed for " +
-                "mixed reality. Build 2D panel apps using standard Android APIs " +
-                "and Jetpack Compose, or create fully immersive 3D experiences " +
-                "with the Meta Spatial SDK.",
+            "The OS is Android-based and designed for mixed reality. " +
+                "Build 2D panel apps using standard Android APIs " +
+                "and Jetpack Compose.",
         style = SpatialTheme.typography.body1,
     )
     InfoCard(
@@ -241,17 +239,9 @@ fun HomeContent() {
         title = "Getting started",
         description =
             "This template gives you a minimal Android project configured for " +
-                "Meta Horizon OS. Modify this activity to start building your app. " +
-                "Your app runs as a spatial panel in Horizon OS and supports " +
-                "multi-window layouts by default.",
-    )
-    InfoCard(
-        icon = Icons.Default.Star,
-        title = "Going immersive",
-        description =
-            "To add immersive 3D content, add the Meta Spatial SDK dependencies " +
-                "to your build.gradle.kts and extend AppSystemActivity instead of " +
-                "ComponentActivity.",
+                "2D panels. Modify this activity to start building your app. " +
+                "Your app runs as a panel and supports multi-window layouts " +
+                "by default.",
     )
   }
 }
@@ -265,7 +255,7 @@ fun FeaturesContent() {
         fontWeight = FontWeight.Bold,
     )
     Text(
-        text = "What makes developing for Meta Horizon OS unique",
+        text = "What makes developing for mixed reality unique",
         style = SpatialTheme.typography.body1,
         color = LocalColorScheme.current.secondaryAlphaBackground,
     )
@@ -281,7 +271,7 @@ fun FeaturesContent() {
         icon = Icons.Default.Create,
         title = "Hand tracking and controllers",
         description =
-            "Horizon OS supports both hand tracking and controllers. Standard " +
+            "The OS supports both hand tracking and controllers. Standard " +
                 "Android touch and pointer events work automatically for 2D " +
                 "panel apps.",
     )
@@ -300,14 +290,6 @@ fun FeaturesContent() {
             "Place sounds in 3D space so audio feels like it comes from a " +
                 "real location in the user's environment. Standard Android " +
                 "audio APIs are supported for panel apps.",
-    )
-    InfoCard(
-        icon = Icons.Default.Search,
-        title = "Scene understanding",
-        description =
-            "Access the user's room layout—including walls, floors, furniture, " +
-                "and other surfaces—to anchor content to the physical world " +
-                "using the Scene API.",
     )
   }
 }
@@ -329,14 +311,14 @@ fun ToolsContent() {
         icon = Icons.Default.Build,
         title = "Meta VR Android Studio Plugin",
         description =
-            "Create projects from templates, inspect data models, and access " +
-                "troubleshooting tools directly in Android Studio.",
+            "Create projects from templates and access troubleshooting tools " +
+                "directly in Android Studio.",
     )
     InfoCard(
         icon = Icons.Default.PlayArrow,
         title = "Meta Spatial Simulator",
         description =
-            "Test your app in a simulated Horizon OS environment on your " +
+            "Test your app in a simulated device environment on your " +
                 "desktop—no headset required. Supports controller emulation " +
                 "and room setup.",
     )
@@ -346,13 +328,6 @@ fun ToolsContent() {
         description =
             "Manage your device, capture logs, take screenshots, and monitor " +
                 "performance from your desktop. Supports wireless ADB connections.",
-    )
-    InfoCard(
-        icon = Icons.Default.Search,
-        title = "Data Model Inspector",
-        description =
-            "Inspect and debug your app's ECS data model in real time. " +
-                "View entities, components, and system state while the app runs.",
     )
   }
 }

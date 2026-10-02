@@ -11,15 +11,16 @@
   android:installLocation="auto"
 >
 
-  <!-- Horizon OS SDK levels are separate from Android SDK levels. The minimum
+  <!-- Meta VR SDK levels are separate from Android SDK levels. The minimum
        keeps the app installable on older releases, while the target opts the
-       app into Horizon OS behavior through v207. -->
+       app into OS behavior through v207. -->
   <metavr:uses-metavr-sdk
     metavr:minSdkVersion="69"
     metavr:targetSdkVersion="207"
   />
-  <!-- The legacy element stays alongside the current one: Horizon OS and the Developer
-       Dashboard still accept it, and the Meta VR SDK AARs declare both themselves. -->
+  <!-- The legacy element stays alongside the current one: the OS and the
+       Developer Dashboard still accept it, and the Meta VR SDK AARs declare both
+       themselves. -->
   <horizonos:uses-horizonos-sdk
     horizonos:minSdkVersion="69"
     horizonos:targetSdkVersion="207"
@@ -34,7 +35,7 @@
       android:name="com.oculus.supportedDevices"
       android:value="quest2|questpro|quest3|quest3s"
     />
-    <!-- Keep this activity alive while the Horizon OS panel is resized or its
+    <!-- Keep this activity alive while the panel is resized or its
          input configuration changes. -->
     <activity
       android:name="com.meta.metavr.samples.metavrtemplate.MainActivity"

@@ -7,7 +7,7 @@ Single-activity Compose app. `MainActivity` is the only activity — all UI is b
 ### File Layout
 
 - `MainActivity.kt` — App entry point and all composables (intentionally single-file for template simplicity)
-- `AndroidManifest.xml` — Activity registration, Horizon OS SDK targeting, panel dimensions
+- `AndroidManifest.xml` — Activity registration, Meta VR SDK targeting, panel dimensions
 - `res/drawable/ic_meta_logo.xml` — Meta logo vector used on the Home tab
 
 ## UI Structure
@@ -51,7 +51,7 @@ val AccentBlue = Color(0xFF47A5FA)   // Icon tint color
 val PanelBottom = Color(0xFF272727)  // Bottom of panel gradient (for fade overlay)
 ```
 
-These match the UISet dark theme palette. If you change the theme, update `PanelBottom` to match the bottom color of `LocalColorScheme.current.panel`.
+These match the UI Set dark theme palette. If you change the theme, update `PanelBottom` to match the bottom color of `LocalColorScheme.current.panel`.
 
 ## Common Modifications
 

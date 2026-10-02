@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-  // UISet styles standard Compose UI for Horizon OS panels; it does not enable
-  // the immersive Spatial SDK application model.
+  // UI Set styles standard Compose UI for OS panels; it does not change the
+  // application model.
   implementation(libs.meta.spatial.sdk.uiset)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
