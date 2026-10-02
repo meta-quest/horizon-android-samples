@@ -1,12 +1,22 @@
 # Horizon OS Template
 
+> **Deprecated.** This template is no longer updated. It stays in place so that
+> existing plugin installations keep working, and will be removed once those
+> have moved on.
+>
+> To create new projects from the current template, update the Meta VR
+> Android Studio Plugin.
+>
+> Projects already generated from this template continue to work. Nothing here
+> stops building.
+
 A minimal 2D Android application template for Horizon OS on Meta Quest devices.
 It uses standard Android and Jetpack Compose with Meta UISet styling, without
 the immersive Spatial SDK application model.
 
 ## Getting Started
 
-1. Open this project in Android Studio with the Meta Horizon OS plugin installed
+1. Open this project in Android Studio with the Meta VR Android Studio Plugin installed
 2. Connect a Meta Quest device or use an emulator
 3. Build and run the app
 

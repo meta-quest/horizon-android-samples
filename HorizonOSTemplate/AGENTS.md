@@ -1,5 +1,15 @@
 # Horizon OS Template
 
+> **Deprecated.** This template is no longer updated. It stays in place so that
+> existing plugin installations keep working, and will be removed once those
+> have moved on.
+>
+> To create new projects from the current template, update the Meta VR
+> Android Studio Plugin.
+>
+> Projects already generated from this template continue to work. Nothing here
+> stops building.
+
 A starter Android project for building 2D panel apps on Meta Quest (Horizon OS).
 
 ## Project Structure
