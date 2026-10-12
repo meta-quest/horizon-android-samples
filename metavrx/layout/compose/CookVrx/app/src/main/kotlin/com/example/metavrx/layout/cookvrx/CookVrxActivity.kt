@@ -18,7 +18,7 @@ import com.example.metavrx.layout.cookvrx.ui.SpatialAppRoot
 import metavrx.layout.compose.SpatialScene
 
 class CookVrxActivity : ComponentActivity() {
-  @SuppressLint("EndpointWithoutSwitchOff") // Standalone MIT sample — no FB kill-switch infra
+  @SuppressLint("EndpointWithoutSwitchOff") // Standalone sample with no remote kill switch
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
