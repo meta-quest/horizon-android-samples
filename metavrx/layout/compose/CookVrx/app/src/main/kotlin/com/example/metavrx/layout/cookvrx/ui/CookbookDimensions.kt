@@ -40,6 +40,7 @@ interface CookbookDimensions {
   val libraryHeaderRuleWidth: Dp
   val libraryHeaderRuleHeight: Dp
   val libraryHeaderRuleSpacing: Dp
+  val libraryHeaderRowSpacing: Dp
   val libraryRecipeCountHorizontalPadding: Dp
   val libraryRecipeCountVerticalPadding: Dp
   val libraryTitleTopSpacing: Dp
@@ -76,6 +77,19 @@ interface CookbookDimensions {
   val detailFooterPadding: Dp
   val detailFactHorizontalPadding: Dp
   val detailFactVerticalPadding: Dp
+
+  val collectionInfoWindowWidth: Dp
+  val collectionInfoWindowHeight: Dp
+  val collectionInfoWindowMinTopOffset: Dp
+  val collectionInfoContentPadding: Dp
+  val collectionInfoTitleTopSpacing: Dp
+  val collectionInfoFactsTopSpacing: Dp
+  val collectionInfoTimeNoteTopSpacing: Dp
+  val collectionInfoSectionTopSpacing: Dp
+  val collectionInfoSectionRuleSpacing: Dp
+  val collectionInfoSectionRuleHeight: Dp
+  val collectionInfoRowVerticalPadding: Dp
+  val collectionInfoBarHeight: Dp
 
   val stepContentPadding: Dp
   val stepBadgePadding: Dp
@@ -174,6 +188,7 @@ object DefaultCookbookDimensions : CookbookDimensions {
   override val libraryHeaderRuleWidth = 42.dp
   override val libraryHeaderRuleHeight = 4.dp
   override val libraryHeaderRuleSpacing = 10.dp
+  override val libraryHeaderRowSpacing = 10.dp
   override val libraryRecipeCountHorizontalPadding = 12.dp
   override val libraryRecipeCountVerticalPadding = 7.dp
   override val libraryTitleTopSpacing = 20.dp
@@ -210,6 +225,19 @@ object DefaultCookbookDimensions : CookbookDimensions {
   override val detailFooterPadding = 14.dp
   override val detailFactHorizontalPadding = 10.dp
   override val detailFactVerticalPadding = 9.dp
+
+  override val collectionInfoWindowWidth = 224.dp
+  override val collectionInfoWindowHeight = 384.dp
+  override val collectionInfoWindowMinTopOffset = 10.dp
+  override val collectionInfoContentPadding = 14.dp
+  override val collectionInfoTitleTopSpacing = 12.dp
+  override val collectionInfoFactsTopSpacing = 10.dp
+  override val collectionInfoTimeNoteTopSpacing = 8.dp
+  override val collectionInfoSectionTopSpacing = 20.dp
+  override val collectionInfoSectionRuleSpacing = 10.dp
+  override val collectionInfoSectionRuleHeight = 1.dp
+  override val collectionInfoRowVerticalPadding = 6.dp
+  override val collectionInfoBarHeight = 4.dp
 
   override val stepContentPadding = 26.dp
   override val stepBadgePadding = 11.dp

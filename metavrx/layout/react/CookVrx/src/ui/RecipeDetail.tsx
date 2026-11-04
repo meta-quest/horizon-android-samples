@@ -11,6 +11,7 @@ import type {Recipe} from '../data/types';
 import type {StyleProp, ViewStyle} from 'react-native';
 
 import {useCookVrxTheme, withAlpha} from '../theme/theme';
+import {Fact} from './Fact';
 import {
   Card,
   CloseButton,
@@ -113,23 +114,6 @@ function RecipeFacts({recipe}: {recipe: Recipe}): React.JSX.Element {
   );
 }
 
-function Fact({label, value}: {label: string; value: string}): React.JSX.Element {
-  const {colors, dimensions, text} = useCookVrxTheme();
-  return (
-    <View
-      style={[
-        styles.fact,
-        {
-          paddingHorizontal: dimensions.detailFactHorizontalPadding,
-          paddingVertical: dimensions.detailFactVerticalPadding,
-        },
-      ]}>
-      <Eyebrow text={label} />
-      <Text style={[text.bodyStrong, {color: colors.ink}]}>{value}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -156,9 +140,5 @@ const styles = StyleSheet.create({
   },
   factsRow: {
     flexDirection: 'row',
-  },
-  fact: {
-    flex: 1,
-    alignItems: 'center',
   },
 });

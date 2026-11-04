@@ -10,9 +10,12 @@
 import type {CookVrxStore, MobileCookTool} from './src/state/useCookVrx';
 import type {Recipe} from './src/data/types';
 import type {OffsetStepValue} from '@metavr/layout-window-compat';
+import type {BottomRightCorner} from './src/ui/Library';
+import type {StyleProp, ViewStyle} from 'react-native';
 
 import {useCookVrx} from './src/state/useCookVrx';
 import {CookVrxThemeProvider, useCookVrxTheme} from './src/theme/theme';
+import {CollectionInfoPanel} from './src/ui/CollectionInfo';
 import {CookStep} from './src/ui/CookStep';
 import {IngredientsPanel} from './src/ui/Ingredients';
 import {LibraryScreen} from './src/ui/Library';
@@ -24,12 +27,13 @@ import {
   useSpatialScene,
 } from '@metavr/layout-compat';
 import {
+  OffsetMidNear,
   OffsetNear,
   SpatialWindow,
   createWindowScene,
   useSpatialWindowState,
 } from '@metavr/layout-window-compat';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 // Negating an offset constant (`-OffsetNear`) widens it back to `number`, which
@@ -85,13 +89,57 @@ function SpatialBrowseLayout({
 }: {
   store: CookVrxStore;
 }): React.JSX.Element {
+  const [collectionInfoButtonCorner, setCollectionInfoButtonCorner] =
+    useState<BottomRightCorner | null>(null);
   return (
     <View style={styles.row}>
-      <Library store={store} />
+      <Library store={store} onCollectionInfoButtonLayout={setCollectionInfoButtonCorner} />
       {store.selectedRecipe != null && (
         <DetailWindow store={store} recipe={store.selectedRecipe} />
       )}
+      {store.isCollectionInfoOpen && (
+        <CollectionInfoWindow
+          store={store}
+          buttonCorner={collectionInfoButtonCorner}
+        />
+      )}
     </View>
+  );
+}
+
+const TOP_RIGHT = {horizontal: 'right', vertical: 'top'} as const;
+const TOP_RIGHT_CORNER = {parent: TOP_RIGHT, child: TOP_RIGHT} as const;
+
+function CollectionInfoWindow({
+  store,
+  buttonCorner,
+}: {
+  store: CookVrxStore;
+  buttonCorner: BottomRightCorner | null;
+}): React.JSX.Element {
+  const {dimensions} = useCookVrxTheme();
+  const {placement} = useSpatialWindowState('collection-info');
+  return (
+    <SpatialWindow
+      label="collection-info"
+      windowWidth={dimensions.collectionInfoWindowWidth}
+      windowHeight={dimensions.collectionInfoWindowHeight}
+      anchor={TOP_RIGHT_CORNER}
+      offset={{
+        planeUnit: 'point',
+        x: buttonCorner?.fromRight ?? 0,
+        y: -(buttonCorner?.bottom ?? 0),
+        z: OffsetNear,
+      }}>
+      <CollectionInfo
+        store={store}
+        style={
+          placement === 'spatial'
+            ? styles.fill
+            : {width: dimensions.collectionInfoWindowWidth}
+        }
+      />
+    </SpatialWindow>
   );
 }
 
@@ -110,7 +158,7 @@ function DetailWindow({
       windowWidth={dimensions.detailWindowWidth}
       windowHeight={dimensions.detailWindowHeight}
       anchor="end"
-      offset={{start: OffsetNearTowardEnd, z: OffsetNear}}>
+      offset={{start: OffsetNearTowardEnd, z: OffsetMidNear}}>
       <RecipeDetail
         recipe={recipe}
         onClose={store.closeRecipe}
@@ -200,16 +248,20 @@ function MobileAppRoot({store}: {store: CookVrxStore}): React.JSX.Element {
   const recipe = store.selectedRecipe;
 
   if (store.mode === 'browse') {
-    return recipe == null ? (
-      <Library store={store} />
-    ) : (
-      <RecipeDetail
-        recipe={recipe}
-        onClose={store.closeRecipe}
-        onStartCooking={store.startCooking}
-        style={styles.fill}
-      />
-    );
+    if (recipe != null) {
+      return (
+        <RecipeDetail
+          recipe={recipe}
+          onClose={store.closeRecipe}
+          onStartCooking={store.startCooking}
+          style={styles.fill}
+        />
+      );
+    }
+    if (store.isCollectionInfoOpen) {
+      return <CollectionInfo store={store} style={styles.fill} />;
+    }
+    return <Library store={store} />;
   }
 
   if (recipe == null) {
@@ -291,7 +343,13 @@ function MobileToolPicker({
   );
 }
 
-function Library({store}: {store: CookVrxStore}): React.JSX.Element {
+function Library({
+  store,
+  onCollectionInfoButtonLayout,
+}: {
+  store: CookVrxStore;
+  onCollectionInfoButtonLayout?: (corner: BottomRightCorner) => void;
+}): React.JSX.Element {
   return (
     <LibraryScreen
       recipes={store.filteredRecipes}
@@ -300,7 +358,27 @@ function Library({store}: {store: CookVrxStore}): React.JSX.Element {
       selectedRecipeId={store.selectedRecipeId}
       onCategorySelected={store.selectCategory}
       onRecipeSelected={store.selectRecipe}
+      isCollectionInfoOpen={store.isCollectionInfoOpen}
+      onCollectionInfoPress={store.toggleCollectionInfo}
+      onCollectionInfoButtonLayout={onCollectionInfoButtonLayout}
       style={styles.fill}
+    />
+  );
+}
+
+function CollectionInfo({
+  store,
+  style,
+}: {
+  store: CookVrxStore;
+  style?: StyleProp<ViewStyle>;
+}): React.JSX.Element {
+  return (
+    <CollectionInfoPanel
+      recipeCount={store.recipes.length}
+      stats={store.collectionStats}
+      onCloseButtonPress={store.closeCollectionInfo}
+      style={style}
     />
   );
 }

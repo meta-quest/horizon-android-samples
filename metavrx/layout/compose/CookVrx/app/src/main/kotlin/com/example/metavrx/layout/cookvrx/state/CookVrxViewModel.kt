@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.metavrx.layout.cookvrx.data.CollectionStats
 import com.example.metavrx.layout.cookvrx.data.Recipe
 import com.example.metavrx.layout.cookvrx.data.RecipeRepository
 import kotlinx.coroutines.Dispatchers
@@ -56,6 +57,12 @@ class CookVrxViewModel(application: Application) : AndroidViewModel(application)
   var selectedCategory by mutableStateOf("All")
     private set
 
+  var isCollectionInfoOpen by mutableStateOf(false)
+    private set
+
+  var collectionStats by mutableStateOf<CollectionStats?>(null)
+    private set
+
   var stepIndex by mutableIntStateOf(0)
     private set
 
@@ -72,6 +79,7 @@ class CookVrxViewModel(application: Application) : AndroidViewModel(application)
   init {
     viewModelScope.launch {
       recipes = withContext(Dispatchers.IO) { RecipeRepository(application.assets).loadRecipes() }
+      collectionStats = CollectionStats.from(recipes)
     }
   }
 
@@ -95,9 +103,18 @@ class CookVrxViewModel(application: Application) : AndroidViewModel(application)
     selectedRecipeId = null
   }
 
+  fun toggleCollectionInfo() {
+    isCollectionInfoOpen = !isCollectionInfoOpen
+  }
+
+  fun closeCollectionInfo() {
+    isCollectionInfoOpen = false
+  }
+
   fun startCooking() {
     if (selectedRecipe == null) return
     mode = CookVrxMode.Cook
+    isCollectionInfoOpen = false
     stepIndex = 0
     isComplete = false
     checkedIngredients.clear()

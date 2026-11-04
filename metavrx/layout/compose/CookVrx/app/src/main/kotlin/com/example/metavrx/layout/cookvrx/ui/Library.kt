@@ -10,9 +10,11 @@ package com.example.metavrx.layout.cookvrx.ui
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,8 +32,12 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.metavrx.layout.cookvrx.data.Recipe
+import com.example.metavrx.layout.cookvrx.state.TrackedBoundsState
+import com.example.metavrx.layout.cookvrx.state.trackBounds
 import metavrx.uiset.compose.button.ButtonStyle
 import metavrx.uiset.compose.button.LabelButton
 import metavrx.uiset.compose.card.SecondaryCard
@@ -47,7 +53,9 @@ fun LibraryScreen(
     columnCount: Int,
     onCategorySelected: (String) -> Unit,
     onRecipeSelected: (Recipe) -> Unit,
+    onCollectionInfoClick: () -> Unit,
     modifier: Modifier = Modifier,
+    collectionInfoButtonBounds: TrackedBoundsState? = null,
 ) {
   val colors = CookVrxTheme.colors
   val dimensions = CookVrxTheme.dimensions
@@ -59,7 +67,10 @@ fun LibraryScreen(
       verticalArrangement = Arrangement.spacedBy(dimensions.libraryVerticalSpacing),
   ) {
     item(span = { GridItemSpan(maxLineSpan) }) {
-      LibraryHeader(recipeCount = recipes.size)
+      LibraryHeader(
+          onCollectionInfoClick = onCollectionInfoClick,
+          buttonBounds = collectionInfoButtonBounds,
+      )
     }
     item(span = { GridItemSpan(maxLineSpan) }) {
       CategoryStrip(
@@ -92,16 +103,20 @@ fun LibraryScreen(
   }
 }
 
-@Suppress("JetpackComposeBoxWithSingleComposable") // Box draws the pill background behind the count
+@Suppress("JetpackComposeBoxWithSingleComposable") // Box draws the pill background behind the label
 @Composable
-private fun LibraryHeader(recipeCount: Int) {
+private fun LibraryHeader(
+    onCollectionInfoClick: () -> Unit,
+    buttonBounds: TrackedBoundsState?,
+) {
   val colors = CookVrxTheme.colors
   val dimensions = CookVrxTheme.dimensions
   Column(modifier = Modifier.fillMaxWidth()) {
-    Row(
+    FlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalArrangement = Arrangement.spacedBy(dimensions.libraryHeaderRowSpacing),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
@@ -115,13 +130,20 @@ private fun LibraryHeader(recipeCount: Int) {
       }
       Box(
           modifier =
-              Modifier.background(colors.ink, CircleShape)
+              Modifier.let { if (buttonBounds != null) it.trackBounds(buttonBounds) else it }
+                  .clip(CircleShape)
+                  .background(colors.ink)
+                  .clickable(
+                      onClickLabel = "Show collection info",
+                      role = Role.Button,
+                      onClick = onCollectionInfoClick,
+                  )
                   .padding(
                       horizontal = dimensions.libraryRecipeCountHorizontalPadding,
                       vertical = dimensions.libraryRecipeCountVerticalPadding,
                   ),
       ) {
-        Eyebrow("$recipeCount recipes", color = colors.cream)
+        Eyebrow("Show all recipe details", color = colors.cream)
       }
     }
     Spacer(modifier = Modifier.height(dimensions.libraryTitleTopSpacing))

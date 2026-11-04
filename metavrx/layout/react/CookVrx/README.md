@@ -80,7 +80,6 @@ Consumes the published SDK the way any external app does:
   package's `android/` project is a thin autolinking shim that declares its
   matching AAR and compiles React Native's generated output from that package's `specs/`.
 
-
 ## Layout
 
 ```

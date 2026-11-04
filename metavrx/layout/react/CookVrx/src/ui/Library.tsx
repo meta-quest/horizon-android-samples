@@ -9,7 +9,12 @@
 
 import type {Recipe} from '../data/types';
 import type {CookbookDimensions} from '../theme/theme';
-import type {LayoutChangeEvent, StyleProp, ViewStyle} from 'react-native';
+import type {
+  LayoutChangeEvent,
+  LayoutRectangle,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import {useCookVrxTheme, withAlpha} from '../theme/theme';
 import {
@@ -21,7 +26,7 @@ import {
   Rule,
 } from './primitives';
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 
 /**
  * Recipe columns that fit in `width`, capped at the profile's column count. `width` of 0 means the
@@ -37,6 +42,8 @@ function columnsForWidth(width: number, dimensions: CookbookDimensions): number 
   return Math.max(1, Math.min(dimensions.libraryColumnCount, Math.floor(available / perColumn)));
 }
 
+export type BottomRightCorner = Readonly<{fromRight: number; bottom: number}>;
+
 export function LibraryScreen({
   recipes,
   categories,
@@ -44,6 +51,9 @@ export function LibraryScreen({
   selectedRecipeId,
   onCategorySelected,
   onRecipeSelected,
+  isCollectionInfoOpen,
+  onCollectionInfoPress,
+  onCollectionInfoButtonLayout,
   style,
 }: {
   recipes: ReadonlyArray<Recipe>;
@@ -52,9 +62,17 @@ export function LibraryScreen({
   selectedRecipeId: string | null;
   onCategorySelected: (category: string) => void;
   onRecipeSelected: (recipe: Recipe) => void;
+  isCollectionInfoOpen: boolean;
+  onCollectionInfoPress: () => void;
+  onCollectionInfoButtonLayout?: (corner: BottomRightCorner) => void;
   style?: StyleProp<ViewStyle>;
 }): React.JSX.Element {
   const {colors, dimensions} = useCookVrxTheme();
+  const onHeaderButtonLayout = (layout: LayoutRectangle) =>
+    onCollectionInfoButtonLayout?.({
+      fromRight: dimensions.libraryContentPadding,
+      bottom: dimensions.libraryContentPadding + layout.y + layout.height,
+    });
   // Measured rather than taken from the profile: the library shares the main panel with whichever
   // spatial windows are declared, and its width jumps whenever one of them promotes out of the
   // inline flow (or falls back into it). Reading the profile alone leaves the grid stuck at the
@@ -84,7 +102,11 @@ export function LibraryScreen({
       }
       ListHeaderComponent={
         <View style={{gap: dimensions.libraryVerticalSpacing}}>
-          <LibraryHeader recipeCount={recipes.length} />
+          <LibraryHeader
+            isCollectionInfoOpen={isCollectionInfoOpen}
+            onCollectionInfoPress={onCollectionInfoPress}
+            onCollectionInfoButtonLayout={onHeaderButtonLayout}
+          />
           <CategoryStrip
             categories={categories}
             selectedCategory={selectedCategory}
@@ -116,11 +138,20 @@ export function LibraryScreen({
   );
 }
 
-function LibraryHeader({recipeCount}: {recipeCount: number}): React.JSX.Element {
+function LibraryHeader({
+  isCollectionInfoOpen,
+  onCollectionInfoPress,
+  onCollectionInfoButtonLayout,
+}: {
+  isCollectionInfoOpen: boolean;
+  onCollectionInfoPress: () => void;
+  onCollectionInfoButtonLayout?: (layout: LayoutRectangle) => void;
+}): React.JSX.Element {
   const {colors, dimensions, text} = useCookVrxTheme();
   return (
     <View>
-      <View style={styles.headerRow}>
+      <View
+        style={[styles.headerRow, {rowGap: dimensions.libraryHeaderRowSpacing}]}>
         <View style={styles.headerBrand}>
           <Rule
             width={dimensions.libraryHeaderRuleWidth}
@@ -128,19 +159,28 @@ function LibraryHeader({recipeCount}: {recipeCount: number}): React.JSX.Element 
             color={colors.tomato}
           />
           <View style={{width: dimensions.libraryHeaderRuleSpacing}} />
-          <Eyebrow text="CookVrx · A field cookbook" color={colors.ink} />
+          <Eyebrow
+            text="CookVrx · A field cookbook"
+            color={colors.ink}
+            style={styles.headerBrandText}
+          />
         </View>
-        <View
-          style={[
+        <Pressable
+          onLayout={event => onCollectionInfoButtonLayout?.(event.nativeEvent.layout)}
+          onPress={onCollectionInfoPress}
+          accessibilityRole="button"
+          accessibilityState={{expanded: isCollectionInfoOpen}}
+          style={({pressed}) => [
             styles.recipeCountPill,
             {
               backgroundColor: colors.ink,
               paddingHorizontal: dimensions.libraryRecipeCountHorizontalPadding,
               paddingVertical: dimensions.libraryRecipeCountVerticalPadding,
+              opacity: pressed ? 0.8 : 1,
             },
           ]}>
-          <Eyebrow text={`${recipeCount} recipes`} color={colors.cream} />
-        </View>
+          <Eyebrow text="Show all recipe details" color={colors.cream} />
+        </Pressable>
       </View>
       <View style={{height: dimensions.libraryTitleTopSpacing}} />
       <Text style={[text.display, {color: colors.ink}]}>
@@ -265,12 +305,17 @@ const styles = StyleSheet.create({
   },
   headerRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerBrand: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexShrink: 1,
+  },
+  headerBrandText: {
+    flexShrink: 1,
   },
   recipeCountPill: {
     borderRadius: 999,

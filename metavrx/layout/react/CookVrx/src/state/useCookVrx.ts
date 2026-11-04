@@ -7,8 +7,10 @@
  * @format
  */
 
+import type {CollectionStats} from '../data/collectionStats';
 import type {Recipe} from '../data/types';
 
+import {computeCollectionStats} from '../data/collectionStats';
 import {ALL_CATEGORIES, categoriesOf, RECIPES} from '../data/recipes';
 import {useCallback, useMemo, useRef, useState} from 'react';
 
@@ -29,6 +31,8 @@ export type CookVrxStore = Readonly<{
   selectedRecipe: Recipe | null;
   selectedRecipeId: string | null;
   selectedCategory: string;
+  isCollectionInfoOpen: boolean;
+  collectionStats: CollectionStats | null;
   mode: CookVrxMode;
   stepIndex: number;
   isComplete: boolean;
@@ -39,6 +43,8 @@ export type CookVrxStore = Readonly<{
   selectCategory: (category: string) => void;
   selectRecipe: (recipe: Recipe) => void;
   closeRecipe: () => void;
+  toggleCollectionInfo: () => void;
+  closeCollectionInfo: () => void;
   startCooking: () => void;
   nextStep: () => void;
   previousStep: () => void;
@@ -61,6 +67,7 @@ export function useCookVrx(): CookVrxStore {
   const [mode, setMode] = useState<CookVrxMode>('browse');
   const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState(ALL_CATEGORIES);
+  const [isCollectionInfoOpen, setIsCollectionInfoOpen] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [mobileCookTool, setMobileCookTool] =
@@ -72,6 +79,8 @@ export function useCookVrx(): CookVrxStore {
   const nextTimerIdRef = useRef(0);
 
   const categories = useMemo(() => categoriesOf(recipes), [recipes]);
+
+  const collectionStats = useMemo(() => computeCollectionStats(recipes), [recipes]);
 
   const selectedRecipe = useMemo(
     () => recipes.find(recipe => recipe.id === selectedRecipeId) ?? null,
@@ -106,11 +115,20 @@ export function useCookVrx(): CookVrxStore {
     setSelectedRecipeId(null);
   }, []);
 
+  const toggleCollectionInfo = useCallback(() => {
+    setIsCollectionInfoOpen(open => !open);
+  }, []);
+
+  const closeCollectionInfo = useCallback(() => {
+    setIsCollectionInfoOpen(false);
+  }, []);
+
   const startCooking = useCallback(() => {
     if (selectedRecipe == null) {
       return;
     }
     setMode('cook');
+    setIsCollectionInfoOpen(false);
     setStepIndex(0);
     setIsComplete(false);
     setCheckedIngredients(new Set());
@@ -204,6 +222,8 @@ export function useCookVrx(): CookVrxStore {
     selectedRecipe,
     selectedRecipeId,
     selectedCategory,
+    isCollectionInfoOpen,
+    collectionStats,
     mode,
     stepIndex,
     isComplete,
@@ -213,6 +233,8 @@ export function useCookVrx(): CookVrxStore {
     selectCategory,
     selectRecipe,
     closeRecipe,
+    toggleCollectionInfo,
+    closeCollectionInfo,
     startCooking,
     nextStep,
     previousStep,

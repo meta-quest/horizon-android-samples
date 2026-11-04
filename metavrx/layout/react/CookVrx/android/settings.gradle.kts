@@ -28,6 +28,9 @@ extensions.configure<com.facebook.react.ReactSettingsExtension> {
 }
 
 dependencyResolutionManagement {
+  // The React Native Gradle plugin adds repositories to every project, which would otherwise hide
+  // these from the app and the autolinked SDK modules.
+  repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
   repositories {
     google()
     mavenCentral()

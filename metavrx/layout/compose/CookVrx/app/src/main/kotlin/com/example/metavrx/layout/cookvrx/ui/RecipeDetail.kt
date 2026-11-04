@@ -151,22 +151,3 @@ private fun RecipeFacts(recipe: Recipe) {
     }
   }
 }
-
-@Composable
-private fun Fact(label: String, value: String, modifier: Modifier = Modifier) {
-  val dimensions = CookVrxTheme.dimensions
-  Column(
-      modifier =
-          modifier.padding(
-              horizontal = dimensions.detailFactHorizontalPadding,
-              vertical = dimensions.detailFactVerticalPadding,
-          ),
-      horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    Eyebrow(label)
-    BasicText(
-        text = value,
-        style = CookVrxTheme.bodyStrong.copy(color = CookVrxTheme.colors.ink),
-    )
-  }
-}

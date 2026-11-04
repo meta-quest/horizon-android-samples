@@ -24,6 +24,7 @@ import com.example.metavrx.layout.cookvrx.data.Recipe
 import com.example.metavrx.layout.cookvrx.state.CookVrxMode
 import com.example.metavrx.layout.cookvrx.state.CookVrxViewModel
 import com.example.metavrx.layout.cookvrx.state.MobileCookTool
+import com.example.metavrx.layout.cookvrx.state.TrackedBoundsState
 import metavrx.uiset.compose.button.ButtonStyle
 import metavrx.uiset.compose.button.LabelButton
 
@@ -38,10 +39,14 @@ fun AppRoot(viewModel: CookVrxViewModel) {
 @Composable
 private fun MobileBrowseLayout(viewModel: CookVrxViewModel) {
   val selectedRecipe = viewModel.selectedRecipe
-  if (selectedRecipe == null) {
-    RecipeLibrary(viewModel)
-  } else {
-    RecipeDetails(viewModel = viewModel, recipe = selectedRecipe)
+  when {
+    selectedRecipe != null -> RecipeDetails(viewModel = viewModel, recipe = selectedRecipe)
+    viewModel.isCollectionInfoOpen -> CollectionInfo(viewModel)
+    else ->
+        RecipeLibrary(
+            viewModel = viewModel,
+            onCollectionInfoClick = viewModel::toggleCollectionInfo,
+        )
   }
 }
 
@@ -70,7 +75,12 @@ private fun MobileCookLayout(viewModel: CookVrxViewModel) {
 }
 
 @Composable
-internal fun RecipeLibrary(viewModel: CookVrxViewModel, modifier: Modifier = Modifier) {
+internal fun RecipeLibrary(
+    viewModel: CookVrxViewModel,
+    onCollectionInfoClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    collectionInfoButtonBounds: TrackedBoundsState? = null,
+) {
   val dimensions = CookVrxTheme.dimensions
   val windowWidth = LocalConfiguration.current.screenWidthDp.dp
   LibraryScreen(
@@ -81,6 +91,18 @@ internal fun RecipeLibrary(viewModel: CookVrxViewModel, modifier: Modifier = Mod
       columnCount = dimensions.libraryColumnCountFor(windowWidth),
       onCategorySelected = viewModel::selectCategory,
       onRecipeSelected = viewModel::selectRecipe,
+      onCollectionInfoClick = onCollectionInfoClick,
+      modifier = modifier,
+      collectionInfoButtonBounds = collectionInfoButtonBounds,
+  )
+}
+
+@Composable
+internal fun CollectionInfo(viewModel: CookVrxViewModel, modifier: Modifier = Modifier) {
+  CollectionInfoPanel(
+      recipeCount = viewModel.recipes.size,
+      stats = viewModel.collectionStats,
+      onCloseButtonClicked = viewModel::closeCollectionInfo,
       modifier = modifier,
   )
 }

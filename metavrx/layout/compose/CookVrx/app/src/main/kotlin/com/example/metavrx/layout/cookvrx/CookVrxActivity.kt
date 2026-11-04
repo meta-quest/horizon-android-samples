@@ -7,7 +7,6 @@
 
 package com.example.metavrx.layout.cookvrx
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,7 +17,6 @@ import com.example.metavrx.layout.cookvrx.ui.SpatialAppRoot
 import metavrx.layout.compose.SpatialScene
 
 class CookVrxActivity : ComponentActivity() {
-  @SuppressLint("EndpointWithoutSwitchOff") // Standalone sample with no remote kill switch
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {

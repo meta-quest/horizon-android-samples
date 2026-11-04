@@ -74,6 +74,7 @@ export type CookbookDimensions = Readonly<{
   libraryHeaderRuleWidth: number;
   libraryHeaderRuleHeight: number;
   libraryHeaderRuleSpacing: number;
+  libraryHeaderRowSpacing: number;
   libraryRecipeCountHorizontalPadding: number;
   libraryRecipeCountVerticalPadding: number;
   libraryTitleTopSpacing: number;
@@ -110,6 +111,18 @@ export type CookbookDimensions = Readonly<{
   detailFooterPadding: number;
   detailFactHorizontalPadding: number;
   detailFactVerticalPadding: number;
+
+  collectionInfoWindowWidth: number;
+  collectionInfoWindowHeight: number;
+  collectionInfoContentPadding: number;
+  collectionInfoTitleTopSpacing: number;
+  collectionInfoFactsTopSpacing: number;
+  collectionInfoTimeNoteTopSpacing: number;
+  collectionInfoSectionTopSpacing: number;
+  collectionInfoSectionRuleSpacing: number;
+  collectionInfoSectionRuleHeight: number;
+  collectionInfoRowVerticalPadding: number;
+  collectionInfoBarHeight: number;
 
   stepContentPadding: number;
   stepBadgePadding: number;
@@ -202,6 +215,7 @@ export const defaultCookbookDimensions: CookbookDimensions = {
   libraryHeaderRuleWidth: 42,
   libraryHeaderRuleHeight: 4,
   libraryHeaderRuleSpacing: 10,
+  libraryHeaderRowSpacing: 10,
   libraryRecipeCountHorizontalPadding: 12,
   libraryRecipeCountVerticalPadding: 7,
   libraryTitleTopSpacing: 20,
@@ -238,6 +252,18 @@ export const defaultCookbookDimensions: CookbookDimensions = {
   detailFooterPadding: 14,
   detailFactHorizontalPadding: 10,
   detailFactVerticalPadding: 9,
+
+  collectionInfoWindowWidth: 224,
+  collectionInfoWindowHeight: 384,
+  collectionInfoContentPadding: 14,
+  collectionInfoTitleTopSpacing: 12,
+  collectionInfoFactsTopSpacing: 10,
+  collectionInfoTimeNoteTopSpacing: 8,
+  collectionInfoSectionTopSpacing: 20,
+  collectionInfoSectionRuleSpacing: 10,
+  collectionInfoSectionRuleHeight: 1,
+  collectionInfoRowVerticalPadding: 6,
+  collectionInfoBarHeight: 4,
 
   stepContentPadding: 26,
   stepBadgePadding: 11,

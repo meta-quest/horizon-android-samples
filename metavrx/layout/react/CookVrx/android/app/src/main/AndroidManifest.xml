@@ -42,7 +42,9 @@
            main activity stays at this size. -->
       <layout
           android:defaultHeight="800dp"
-          android:defaultWidth="1200dp" />
+          android:defaultWidth="1200dp"
+          android:minHeight="500dp"
+          android:minWidth="540dp" />
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
