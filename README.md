@@ -4,7 +4,8 @@ Sample Android applications for Meta Horizon OS.
 
 ## Samples
 
-- **HorizonOSTemplate** — Minimal 2D panel app using Jetpack Compose and Meta's UISet design system. Serves as the starter template for the Horizon OS New Project wizard in Android Studio.
+- **[MetaVRTemplate](MetaVRTemplate)** — Minimal 2D panel app using Jetpack Compose and the Meta VR UI Set SDK. Start new projects here; it is the template the Meta VR Android Studio Plugin's New Project wizard creates.
+- **[HorizonOSTemplate](HorizonOSTemplate)** — Deprecated. Kept so existing plugin installations keep working; use MetaVRTemplate for new projects.
 - **Meta VR Layout SDK**
   - [CookVrx (Jetpack Compose)](metavrx/layout/compose/CookVrx)
   - [CookVrx (React Native)](metavrx/layout/react/CookVrx)

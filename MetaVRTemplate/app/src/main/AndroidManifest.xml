@@ -30,10 +30,11 @@
     android:label="@string/app_name"
     android:theme="@style/Theme.AppTheme"
   >
-    <!-- Advertise the headset families supported by this starter project. -->
+    <!-- The Meta VR devices this app supports. On a device the list does not
+         name, Horizon OS runs the app in compatibility mode. -->
     <meta-data
       android:name="com.oculus.supportedDevices"
-      android:value="quest2|questpro|quest3|quest3s"
+      android:value="quest2|questpro|quest3|quest3s|vrglasses"
     />
     <!-- Keep this activity alive while the panel is resized or its
          input configuration changes. -->

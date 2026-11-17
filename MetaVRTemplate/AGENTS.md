@@ -97,10 +97,10 @@ This template uses the Meta VR UI Set SDK (package `metavrx.uiset.compose`):
   horizonos:minSdkVersion="69"
   horizonos:targetSdkVersion="207" />
 
-<!-- Supported Quest devices -->
+<!-- Meta VR devices this app supports -->
 <meta-data
   android:name="com.oculus.supportedDevices"
-  android:value="quest2|questpro|quest3|quest3s" />
+  android:value="quest2|questpro|quest3|quest3s|vrglasses" />
 
 <!-- Panel default size (2D app window dimensions) -->
 <layout android:defaultHeight="640dp" android:defaultWidth="1024dp" />
@@ -110,6 +110,8 @@ This template uses the Meta VR UI Set SDK (package `metavrx.uiset.compose`):
 - `metavr:targetSdkVersion` opts into behavior through that OS release and
   should advance independently of the minimum.
 - These values are separate from Android's `minSdk` and `targetSdk`.
+- `com.oculus.supportedDevices` lists the Meta VR devices the app supports. On
+  a device the list does not name, Horizon OS runs the app in compatibility mode.
 
 ## Look and Pinch
 
